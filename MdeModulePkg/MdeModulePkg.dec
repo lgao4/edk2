@@ -967,11 +967,6 @@
   # @Prompt Max PEI PCD callback number per PCD entry.
   gEfiMdeModulePkgTokenSpaceGuid.PcdMaxPeiPcdCallBackNumberPerPcdEntry|0x08|UINT32|0x0001000f
 
-  ## VPD type PCD  allows a developer to point to an absolute physical address PcdVpdBaseAddress
-  #  to store PCD value.
-  # @Prompt VPD base address.
-  gEfiMdeModulePkgTokenSpaceGuid.PcdVpdBaseAddress|0x0|UINT32|0x00010010
-
   ## Maximum number of FV is supported by PeiCore's dispatching.
   # @Prompt Maximum number of FV supported by PeiCore.
   gEfiMdeModulePkgTokenSpaceGuid.PcdPeiCoreMaxFvSupported|6|UINT32|0x00010030
@@ -1439,6 +1434,11 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdSetupConOutRow|25|UINT32|0x4000000e
 
 [PcdsFixedAtBuild, PcdsPatchableInModule, PcdsDynamic, PcdsDynamicEx]
+  ## VPD type PCD  allows a developer to point to an absolute physical address PcdVpdBaseAddress
+  #  to store PCD value.
+  # @Prompt VPD base address.
+  gEfiMdeModulePkgTokenSpaceGuid.PcdVpdBaseAddress|0x0|UINT32|0x00010010
+
   ## UART clock frequency is for the baud rate configuration.
   # @Prompt Serial Port Clock Rate.
   gEfiMdeModulePkgTokenSpaceGuid.PcdSerialClockRate|1843200|UINT32|0x00010066

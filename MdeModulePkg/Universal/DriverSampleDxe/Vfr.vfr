@@ -488,6 +488,7 @@ formset
             minimum = 0,
             maximum = 255,
             default = 18,
+            default = 20, defaultstore = MyManufactureDefault,  // This is manufacture default value
     endnumeric;
 
     text

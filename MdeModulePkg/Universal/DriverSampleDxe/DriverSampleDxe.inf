@@ -36,7 +36,6 @@
 [Sources]
   DriverSample.c
   InventoryStrings.uni
-  NVDataStruc.h
   VfrStrings.uni
   DriverSample.h
   Inventory.vfr

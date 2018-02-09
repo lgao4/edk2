@@ -37,6 +37,7 @@
   Nt32Pkg/Nt32Pkg.dec
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
+  TestPkg/TestPkg.dec
 
 [LibraryClasses]
   PcdLib
@@ -57,10 +58,14 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
   gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase64
+  gEfiMdeModulePkgTokenSpaceGuid.PcdVpdBaseAddress
 
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFlashNvStorageFtwWorkingBase
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFlashNvStorageFtwSpareBase
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFlashNvStorageVariableBase
+  gEfiNt32PkgTokenSpaceGuid.PcdWinNtVpdBaseAddress
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSetNvStoreDefaultId
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic
 
 [Depex]
   gNtFwhPpiGuid

@@ -1,0 +1,116 @@
+## @file  TestPkg.dec
+#
+# Copyright (c) 2016, Intel Corporation. All rights reserved.<BR>
+# This program and the accompanying materials are licensed and made available under
+# the terms and conditions of the BSD License that accompanies this distribution.
+# The full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php.
+#
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = TestPkg
+  PACKAGE_GUID                   = F05BB314-CD00-4705-BD04-59B1CD9630E1
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+
+[Guids]
+  ## MdeModule package token space guid
+  # Include/Guid/MdeModulePkgTokenSpace.h
+  gEfiStructuredPcdPkgTokenSpaceGuid       = { 0x11a81069, 0xa6a2, 0x420a, { 0xa0, 0xe, 0x30, 0xc5, 0xb, 0xfb, 0xe8, 0x13 } }
+  gTestHiiVarGuid       = { 0x11a81069, 0xa6a2, 0x420a, { 0xa0, 0xe, 0x30, 0xc5, 0xb, 0xfb, 0xe8, 0x13 } }
+
+[PcdsFixedAtBuild, PcdsPatchableInModule, PcdsDynamic, PcdsDynamicEx]
+  # @Prompt Test Strucutre
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestFix|{0xFF, 0xFF}|TEST|0x00010071 {
+    <HeaderFiles>
+      Guid/Test.h     # for Guid/Ppi/Protocol, reuse header file.
+    <Packages>
+      MdePkg/MdePkg.dec
+      TestPkg/TestPkg.dec
+  }
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestFix.A|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestFix.C|20
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestFix.Array2[0]|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestFix.FlexibleArray[7]|5
+  
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestPatchable|{0xFF, 0xFF}|TEST2|0x00010072 {
+    <HeaderFiles>
+      Guid/Test2.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      TestPkg/TestPkg.dec
+  }
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestPatchable.A|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestPatchable.C|20
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestPatchable.Array2[0]|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestPatchable.FlexibleArray[7]|5
+
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic|{0xFF, 0xFF}|TEST2|0x00010073 {
+    <HeaderFiles>
+      Guid/Test2.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      TestPkg/TestPkg.dec
+  }
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic.A|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic.C|20
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic.Array2[0]|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamic.FlexibleArray[7]|5
+
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicExHii|{0xFF, 0xFF}|TEST2|0x00010074 {
+    <HeaderFiles>
+      Guid/Test2.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      TestPkg/TestPkg.dec
+  }
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicExHii.A|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicExHii.C|20
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicExHii.Array2[0]|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicExHii.FlexibleArray[7]|5
+
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicVpd|{0xFF, 0xFF}|TEST2|0x00010075 {
+    <HeaderFiles>
+      Guid/Test2.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      TestPkg/TestPkg.dec
+  }
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicVpd.A|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicVpd.C|20
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicVpd.Array2[0]|2
+  gEfiStructuredPcdPkgTokenSpaceGuid.TestDynamicVpd.FlexibleArray[7]|5
+
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData|{0xFF}|DRIVER_SAMPLE_CONFIGURATION|0x00010076 {
+    <HeaderFiles>
+      NVDataStruc.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      MdeModulePkg/MdeModulePkg.dec
+  }
+
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar|{0xFF}|MY_EFI_VARSTORE_DATA|0x00010077 {
+    <HeaderFiles>
+      NVDataStruc.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      MdeModulePkg/MdeModulePkg.dec
+  }
+  
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiUnionData|{0xFF}|MY_EFI_UNION_DATA|0x00010079 {
+    <HeaderFiles>
+      NVDataStruc.h
+    <Packages>
+      MdePkg/MdePkg.dec
+      MdeModulePkg/MdeModulePkg.dec
+  }

@@ -95,6 +95,10 @@ Returns:
     PcdSet32 (PcdFlashNvStorageFtwWorkingBase, PcdGet32 (PcdWinNtFlashNvStorageFtwWorkingBase) + (UINT32) FdBase);
     PcdSet32 (PcdFlashNvStorageFtwSpareBase, PcdGet32 (PcdWinNtFlashNvStorageFtwSpareBase) + (UINT32) FdBase);
   }
+  
+  PcdSet32 (PcdVpdBaseAddress, PcdGet32 (PcdWinNtVpdBaseAddress) + (UINT32) FdBase);
+  LibPcdSetSku (1);
+  PcdSet16 (PcdSetNvStoreDefaultId, 0x0);
 
   return EFI_SUCCESS;
 }

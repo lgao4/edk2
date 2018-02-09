@@ -350,6 +350,8 @@ DxeGetPcdInfo (
   return Status;
 }
 
+extern UINT32 mVpdBaseAddress;
+
 /**
   Get the PCD entry pointer in PCD database.
   
@@ -435,7 +437,7 @@ GetWorker (
   switch (LocalTokenNumber & PCD_TYPE_ALL_SET) {
     case PCD_TYPE_VPD:
       VpdHead = (VPD_HEAD *) ((UINT8 *) PcdDb + Offset);
-      RetPtr = (VOID *) ((UINTN) PcdGet32 (PcdVpdBaseAddress) + VpdHead->Offset);
+      RetPtr = (VOID *) ((UINTN) mVpdBaseAddress + VpdHead->Offset);
 
       break;
 
