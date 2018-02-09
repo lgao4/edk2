@@ -21,7 +21,7 @@ The EDK II Project is composed of packages.  The maintainers for each package
 are listed in [Maintainers.txt](Maintainers.txt).
 
 # Build TestPkg to verify structure pcd
-* PYTHON_HOME=C:\Python27
+* set PYTHON_HOME=C:\Python27
 * edksetup.bat --nt32
 * nmake -f %BASE_TOOLS_PATH%\Makefile
 * build -p TestPkg\TestPkg.dsc -a IA32 -t VS2015x86
