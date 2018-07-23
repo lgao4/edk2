@@ -677,5 +677,7 @@ InitializePlatform (
   MiscInitialization ();
   InstallFeatureControlCallback ();
 
+  PcdSet16S (PcdSetNvStoreDefaultId, 0x0);
+
   return EFI_SUCCESS;
 }

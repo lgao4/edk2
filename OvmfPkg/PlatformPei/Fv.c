@@ -47,6 +47,12 @@ PeiFvInitialization (
     mS3Supported ? EfiACPIMemoryNVS : EfiBootServicesData
     );
 
+  BuildMemoryAllocationHob (
+    PcdGet32 (PcdVpdBaseAddress),
+    PcdGet32 (PcdOvmfVpdMemSize),
+    mS3Supported ? EfiACPIMemoryNVS : EfiBootServicesData
+    );
+
   //
   // Let DXE know about the DXE FV
   //

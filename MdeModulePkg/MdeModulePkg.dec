@@ -28,7 +28,7 @@
 
 [Includes]
   Include
-
+  Universal/DriverSampleDxe
 
 [LibraryClasses]
   ##  @libraryclass  IpIo layer upon EFI IP4 Protocol.

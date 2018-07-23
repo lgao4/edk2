@@ -69,6 +69,7 @@
   MtrrLib
   MemEncryptSevLib
   PcdLib
+  BaseMemoryLib
 
 [Pcd]
   gUefiOvmfPkgTokenSpaceGuid.PcdOvmfPeiMemFvBase
@@ -107,6 +108,9 @@
   gUefiCpuPkgTokenSpaceGuid.PcdCpuMaxLogicalProcessorNumber
   gUefiCpuPkgTokenSpaceGuid.PcdCpuApInitTimeOutInMicroSeconds
   gUefiCpuPkgTokenSpaceGuid.PcdCpuApStackSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdVpdBaseAddress
+  gUefiOvmfPkgTokenSpaceGuid.PcdOvmfVpdMemSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSetNvStoreDefaultId
 
 [FixedPcd]
   gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
