@@ -1,5 +1,5 @@
 ## @file
-# This package is a platform package that provide platform module/library 
+# This package is a platform package that provide platform module/library
 # required by NT32 platform.
 #
 # File/Directory Orignazation:
@@ -10,7 +10,7 @@
 # |- Nt32Pkg.dsc    : Nt32 platform DSC file
 # |- Nt32Pkg.fdf    : Flash description file for Nt32Pkg. It is used for creating FD file.
 # |- Include        : Include files for Nt32Pkg
-# 
+#
 #
 # Copyright (c) 2007 - 2011, Intel Corporation. All rights reserved.<BR>
 #
@@ -35,7 +35,7 @@
 
 [LibraryClasses]
   ##
-  #  Expose EFI_WIN_NT_THUNK_PROTOCOL's interface, this protocol wrapper all 
+  #  Expose EFI_WIN_NT_THUNK_PROTOCOL's interface, this protocol wrapper all
   #  necessary Window API used by Nt32 enumlation environment.
   WinNtLib|Include/Library/WinNtLib.h
 
@@ -78,6 +78,7 @@
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFlashNvStorageFtwSpareBase|0x0|UINT32|0x00001015
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFlashNvStorageFtwWorkingBase|0x0|UINT32|0x00001016
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFdBaseAddress|0x0|UINT32|0x00001017
+  gEfiNt32PkgTokenSpaceGuid.PcdWinNtVpdBaseAddress|0x0|UINT32|0x00001018
 
 [PcdsFixedAtBuild, PcdsPatchableInModule]
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtBootMode|1|UINT32|0x00001006

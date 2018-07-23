@@ -53,11 +53,13 @@ typedef struct {
 } MY_BITS_DATA;
 
 typedef union {
-  UINT8    UnionNumeric;
-  UINT8    UnionNumericAlias;
+  UINT16    UnionNumeric;
+  UINT16    UnionNumericAlias;
 } MY_EFI_UNION_DATA;
 
 typedef struct {
+  UINT32  ConOutColumn;
+  UINT32  ConOutRow;
   UINT16  MyStringData[40];
   UINT16  SomethingHiddenForHtml;
   UINT8   HowOldAreYouInYearsManual;

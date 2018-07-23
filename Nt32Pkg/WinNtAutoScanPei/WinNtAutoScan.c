@@ -221,5 +221,21 @@ Returns:
       );
   }
 
+  DataSize = sizeof (UINT16);
+  Status = Variable->GetVariable (
+                       Variable,
+                       L"Timeout",
+                       &gEfiGlobalVariableGuid,
+                       NULL,
+                       &DataSize,
+                       &MemoryData
+                       );
+  if (EFI_ERROR (Status)) {
+    //
+    // Set default setting
+    //
+    PcdSet16 (PcdSetNvStoreDefaultId, 0x0);
+  }
+
   return Status;
 }

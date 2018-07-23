@@ -50,6 +50,10 @@
 
 [Guids]
   gEfiMemoryTypeInformationGuid
+  gEfiGlobalVariableGuid
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSetNvStoreDefaultId
   
 [Depex]
   gPeiNtAutoScanPpiGuid AND gEfiPeiMasterBootModePpiGuid AND gEfiPeiReadOnlyVariable2PpiGuid

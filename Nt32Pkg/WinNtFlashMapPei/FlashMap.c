@@ -2,18 +2,18 @@
 
 Copyright (c) 2006, Intel Corporation. All rights reserved.<BR>
 (C) Copyright 2016 Hewlett Packard Enterprise Development LP<BR>
-This program and the accompanying materials                          
-are licensed and made available under the terms and conditions of the BSD License         
-which accompanies this distribution.  The full text of the license may be found at        
-http://opensource.org/licenses/bsd-license.php                                            
-                                                                                          
-THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,                     
-WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.             
+This program and the accompanying materials
+are licensed and made available under the terms and conditions of the BSD License
+which accompanies this distribution.  The full text of the license may be found at
+http://opensource.org/licenses/bsd-license.php
+
+THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 
 Module Name:
 
   FlashMap.c
-   
+
 Abstract:
 
   PEIM to build GUIDed HOBs for platform specific flash map
@@ -45,11 +45,11 @@ PeimInitializeFlashMap (
 
 Routine Description:
   Build GUIDed HOBs for platform specific flash map
-  
+
 Arguments:
   FfsHeader   - A pointer to the EFI_FFS_FILE_HEADER structure.
   PeiServices - General purpose services available to every PEIM.
-    
+
 Returns:
   EFI_STATUS
 
@@ -84,8 +84,8 @@ Returns:
   }
 
   //
-  // Relocate the base of FV region 
-  // 
+  // Relocate the base of FV region
+  //
   if (FdBase >= BASE_4GB) {
     PcdSet64 (PcdFlashNvStorageVariableBase64, PcdGet32 (PcdWinNtFlashNvStorageVariableBase) + (UINT64) FdBase);
     PcdSet64 (PcdFlashNvStorageFtwWorkingBase64, PcdGet32 (PcdWinNtFlashNvStorageFtwWorkingBase) + (UINT64) FdBase);
@@ -95,6 +95,10 @@ Returns:
     PcdSet32 (PcdFlashNvStorageFtwWorkingBase, PcdGet32 (PcdWinNtFlashNvStorageFtwWorkingBase) + (UINT32) FdBase);
     PcdSet32 (PcdFlashNvStorageFtwSpareBase, PcdGet32 (PcdWinNtFlashNvStorageFtwSpareBase) + (UINT32) FdBase);
   }
+
+  PcdSet64 (PcdVpdBaseAddress64, PcdGet32 (PcdWinNtVpdBaseAddress) + (UINT32) FdBase);
+  LibPcdSetSku (1);
+  //PcdSet16 (PcdSetNvStoreDefaultId, 0x0);
 
   return EFI_SUCCESS;
 }
