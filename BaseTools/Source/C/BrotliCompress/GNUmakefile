@@ -18,7 +18,6 @@ OBJECTS = \
   tools/brotli.o \
   common/dictionary.o \
   common/transform.o \
-  
   dec/bit_reader.o \
   dec/decode.o \
   dec/huffman.o \
