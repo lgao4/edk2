@@ -82,9 +82,11 @@ typedef enum {
 #define DEFAULT_SUFFIX ".br"
 #define MAX_OPTIONS 20
 #define DECODE_HEADER_SIZE 0x10
+#define GAP_MEM_BLOCK 0x1000
 
 typedef struct {
   /* Parameters */
+  int gmem;
   int quality;
   int lgwin;
   BROTLI_BOOL force_overwrite;
@@ -173,6 +175,7 @@ static Command ParseParams(Context* params) {
   size_t input_count = 0;
   size_t longest_path_len = 1;
   BROTLI_BOOL command_set = BROTLI_FALSE;
+  BROTLI_BOOL gmem_set = BROTLI_FALSE;
   BROTLI_BOOL quality_set = BROTLI_FALSE;
   BROTLI_BOOL output_set = BROTLI_FALSE;
   BROTLI_BOOL keep_set = BROTLI_FALSE;
@@ -319,6 +322,12 @@ static Command ParseParams(Context* params) {
             return COMMAND_INVALID;
           }
           params->output_path = argv[i];
+        } else if (c == 'g') {
+          gmem_set = ParseInt(argv[i], 1, 0x10, &params->gmem);
+          if (!gmem_set) {
+            fprintf(stderr, "error parsing gmem value [%s]\n", argv[i]);
+            return COMMAND_INVALID;
+          }
         } else if (c == 'q') {
           if (quality_set) {
             fprintf(stderr, "quality already set\n");
@@ -476,6 +485,12 @@ static Command ParseParams(Context* params) {
             return COMMAND_INVALID;
           }
           params->output_path = value;
+        } else if (strncmp("gap", arg, key_len) == 0) {
+          gmem_set = ParseInt(value, 1, 0x10, &params->gmem);
+          if (!gmem_set) {
+            fprintf(stderr, "error parsing gmem value [%s]\n", value);
+            return COMMAND_INVALID;
+          }
         } else if (strncmp("quality", arg, key_len) == 0) {
           if (quality_set) {
             fprintf(stderr, "quality already set\n");
@@ -544,6 +559,8 @@ static void PrintHelp(const char* name, BROTLI_BOOL error) {
 "  -k, --keep                  keep source file(s) (default)\n"
 "  -n, --no-copy-stat          do not copy source file(s) attributes\n"
 "  -o FILE, --output=FILE      output file (only if 1 input file)\n");
+  fprintf(media,
+"  -g NUM, --gap=NUM           scratch memory gap level (1-16)\n");
   fprintf(media,
 "  -q NUM, --quality=NUM       compression level (%d-%d)\n",
           BROTLI_MIN_QUALITY, BROTLI_MAX_QUALITY);
@@ -1019,6 +1036,7 @@ int main(int argc, char** argv) {
 
   context.quality = 11;
   context.lgwin = -1;
+  context.gmem = 1;
   context.force_overwrite = BROTLI_FALSE;
   context.junk_source = BROTLI_FALSE;
   context.copy_stat = BROTLI_TRUE;
@@ -1093,7 +1111,7 @@ int main(int argc, char** argv) {
       //
       context_dec.fout = fopen(context_dec.output_path, "rb+");  /* open output_path file and add in head info */
       fwrite(&input_file_length, 1, sizeof(int64_t), context_dec.fout);
-      // scratch_buffer_size += gmem * GAP_MEM_BLOCK;  /* there is a memory gap between IA32 and X64 environment*/
+      scratch_buffer_size += context.gmem * GAP_MEM_BLOCK;  /* there is a memory gap between IA32 and X64 environment*/
       scratch_buffer_size += kFileBufferSize * 2;
       fwrite(&scratch_buffer_size, 1, sizeof(int64_t), context_dec.fout);
       if (fclose(context_dec.fout) != 0) {
