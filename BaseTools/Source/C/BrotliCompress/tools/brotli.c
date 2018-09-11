@@ -81,6 +81,7 @@ typedef enum {
 #define DEFAULT_LGWIN 24
 #define DEFAULT_SUFFIX ".br"
 #define MAX_OPTIONS 20
+#define DECODE_HEADER_SIZE 0x10
 
 typedef struct {
   /* Parameters */
@@ -664,6 +665,8 @@ static void CopyStat(const char* input_path, const char* output_path) {
   }
 }
 
+int64_t input_file_length = 0;
+
 static BROTLI_BOOL NextFile(Context* context) {
   const char* arg;
   size_t arg_len;
@@ -701,9 +704,14 @@ static BROTLI_BOOL NextFile(Context* context) {
     return BROTLI_TRUE;
   }
 
-  context->current_input_path = arg;
-  context->input_file_length = FileSize(arg);
+  if (context->current_input_path == NULL) {
+    context->current_input_path = arg;
+  }
+  context->input_file_length = FileSize(context->current_input_path);
   context->current_output_path = context->output_path;
+  if (!context->decompress) {
+    input_file_length += context->input_file_length;
+  }
 
   if (context->output_path) return BROTLI_TRUE;
   if (context->write_to_stdout) return BROTLI_TRUE;
@@ -739,9 +747,21 @@ static BROTLI_BOOL NextFile(Context* context) {
 
 static BROTLI_BOOL OpenFiles(Context* context) {
   BROTLI_BOOL is_ok = OpenInputFile(context->current_input_path, &context->fin);
-  if (!context->test_integrity && is_ok) {
+  if (context->decompress) {
+    //
+    // skip the decoder data header
+    //
+    fseek(context->fin, DECODE_HEADER_SIZE, SEEK_SET);
+  }
+  if (!context->test_integrity && is_ok && context->fout == NULL) {
     is_ok = OpenOutputFile(
         context->current_output_path, &context->fout, context->force_overwrite);
+  }
+  if (!context->decompress) {
+    //
+    // append the decoder data header
+    //
+    fseek(context->fout, DECODE_HEADER_SIZE, SEEK_SET);
   }
   return is_ok;
 }
@@ -785,7 +805,7 @@ static BROTLI_BOOL CloseFiles(Context* context, BROTLI_BOOL success) {
   return is_ok;
 }
 
-static const size_t kFileBufferSize = 1 << 19;
+static const size_t kFileBufferSize = 1 << 16;
 
 static void InitializeBuffers(Context* context) {
   context->available_in = 0;
@@ -870,10 +890,23 @@ static BROTLI_BOOL DecompressFile(Context* context, BrotliDecoderState* s) {
   }
 }
 
+/* Default brotli_alloc_func */
+void* BrotliAllocFunc(void* opaque, size_t size) {
+  *(size_t *)opaque = *(size_t *) opaque + size; 
+  return malloc(size);
+}
+
+/* Default brotli_free_func */
+void BrotliFreeFunc(void* opaque, void* address) {
+  free(address);
+}
+
+size_t scratch_buffer_size = 0;
+
 static BROTLI_BOOL DecompressFiles(Context* context) {
   while (NextFile(context)) {
     BROTLI_BOOL is_ok = BROTLI_TRUE;
-    BrotliDecoderState* s = BrotliDecoderCreateInstance(NULL, NULL, NULL);
+    BrotliDecoderState* s = BrotliDecoderCreateInstance(BrotliAllocFunc, BrotliFreeFunc, &scratch_buffer_size);
     if (!s) {
       fprintf(stderr, "out of memory\n");
       return BROTLI_FALSE;
@@ -980,6 +1013,7 @@ static BROTLI_BOOL CompressFiles(Context* context) {
 int main(int argc, char** argv) {
   Command command;
   Context context;
+  Context context_dec;
   BROTLI_BOOL is_ok = BROTLI_TRUE;
   int i;
 
@@ -1041,7 +1075,31 @@ int main(int argc, char** argv) {
       break;
 
     case COMMAND_COMPRESS:
+      memcpy (&context_dec, &context, sizeof (context));
       is_ok = CompressFiles(&context);
+      if (!is_ok) {
+        break;
+      }
+      context_dec.decompress  = BROTLI_TRUE;
+      context_dec.input_count = 1;
+      context_dec.current_input_path = context_dec.output_path;
+      context_dec.fout = tmpfile ();
+      is_ok = DecompressFiles(&context_dec);
+      if (!is_ok) {
+        break;
+      }
+      //
+      // fill decoder header
+      //
+      context_dec.fout = fopen(context_dec.output_path, "rb+");  /* open output_path file and add in head info */
+      fwrite(&input_file_length, 1, sizeof(int64_t), context_dec.fout);
+      // scratch_buffer_size += gmem * GAP_MEM_BLOCK;  /* there is a memory gap between IA32 and X64 environment*/
+      scratch_buffer_size += kFileBufferSize * 2;
+      fwrite(&scratch_buffer_size, 1, sizeof(int64_t), context_dec.fout);
+      if (fclose(context_dec.fout) != 0) {
+        fprintf(stderr, "failed to update ouptut file: %s\n", context_dec.output_path);
+        is_ok = 0;
+      }
       break;
 
     case COMMAND_DECOMPRESS:

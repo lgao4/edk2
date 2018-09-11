@@ -14,7 +14,7 @@
 @echo off
 @setlocal
 
-set QLT=-q 9
+set QLT=-q 9 -w 22
 set ARGS=
 
 :Begin
@@ -57,5 +57,5 @@ shift
 goto Begin
 
 :End
-Brotli %ARGS% %QLT%
+Brotli %QLT% %ARGS%
 @echo on
