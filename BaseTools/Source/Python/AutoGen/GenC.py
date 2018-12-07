@@ -1051,7 +1051,7 @@ def CreateModulePcdCode(Info, AutoGenC, AutoGenH, Pcd):
                     else:
                         NewValue = NewValue + str(ord(Value[Index]) % 0x100) + ', '
                 if Unicode:
-                    ArraySize = ArraySize / 2
+                    ArraySize = ArraySize // 2
                 Value = NewValue + '0 }'
             if ArraySize < ValueSize:
                 if Pcd.MaxSizeUserSet:
@@ -1061,7 +1061,7 @@ def CreateModulePcdCode(Info, AutoGenC, AutoGenH, Pcd):
                 else:
                     ArraySize = Pcd.GetPcdSize()
                     if Unicode:
-                        ArraySize = ArraySize / 2
+                        ArraySize = ArraySize // 2
             Array = '[%d]' % ArraySize
         #
         # skip casting for fixed at build since it breaks ARM assembly.
@@ -1920,7 +1920,7 @@ def BmpImageDecoder(File, Buffer, PaletteIndex, TransParent):
         else:
             ImageBuffer = pack('B', EFI_HII_IIBT_IMAGE_1BIT)
         ImageBuffer += pack('B', PaletteIndex)
-        Width = (BmpHeader.biWidth + 7)/8
+        Width = (BmpHeader.biWidth + 7)//8
         if BmpHeader.bfOffBits > BMP_IMAGE_HEADER_STRUCT.size + 2:
             PaletteBuffer = Buffer[BMP_IMAGE_HEADER_STRUCT.size + 2 : BmpHeader.bfOffBits]
     elif BmpHeader.biBitCount == 4:
@@ -1929,7 +1929,7 @@ def BmpImageDecoder(File, Buffer, PaletteIndex, TransParent):
         else:
             ImageBuffer = pack('B', EFI_HII_IIBT_IMAGE_4BIT)
         ImageBuffer += pack('B', PaletteIndex)
-        Width = (BmpHeader.biWidth + 1)/2
+        Width = (BmpHeader.biWidth + 1)//2
         if BmpHeader.bfOffBits > BMP_IMAGE_HEADER_STRUCT.size + 2:
             PaletteBuffer = Buffer[BMP_IMAGE_HEADER_STRUCT.size + 2 : BmpHeader.bfOffBits]
     elif BmpHeader.biBitCount == 8:
