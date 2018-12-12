@@ -457,15 +457,21 @@ def RemoveDirectory(Directory, Recursively=False):
 #   @retval     False           If the file content is the same
 #
 def SaveFileOnChange(File, Content, IsBinaryFile=True):
-    if not IsBinaryFile:
-        Content = Content.replace("\n", os.linesep)
-
     if os.path.exists(File):
-        try:
-            if Content == open(File, "rb").read():
-                return False
-        except:
-            EdkLogger.error(None, FILE_OPEN_FAILURE, ExtraData=File)
+        if IsBinaryFile:
+            try:
+                with open(File, "rb") as f:
+                    if Content == f.read():
+                        return False
+            except:
+                EdkLogger.error(None, FILE_OPEN_FAILURE, ExtraData=File)
+        else:
+            try:
+                with open(File, "r") as f:
+                    if Content == f.read():
+                        return False
+            except:
+                EdkLogger.error(None, FILE_OPEN_FAILURE, ExtraData=File)
 
     DirName = os.path.dirname(File)
     if not CreateDirectory(DirName):
@@ -476,12 +482,18 @@ def SaveFileOnChange(File, Content, IsBinaryFile=True):
         if not os.access(DirName, os.W_OK):
             EdkLogger.error(None, PERMISSION_FAILURE, "Do not have write permission on directory %s" % DirName)
 
-    try:
-        Fd = open(File, "wb")
-        Fd.write(Content)
-        Fd.close()
-    except IOError as X:
-        EdkLogger.error(None, FILE_CREATE_FAILURE, ExtraData='IOError %s' % X)
+    if IsBinaryFile:
+        try:
+            with open(File, "wb") as Fd:
+                Fd.write(Content)
+        except IOError as X:
+            EdkLogger.error(None, FILE_CREATE_FAILURE, ExtraData='IOError %s' % X)
+    else:
+        try:
+            with open(File, 'w') as Fd:
+                Fd.write(Content)
+        except IOError as X:
+            EdkLogger.error(None, FILE_CREATE_FAILURE, ExtraData='IOError %s' % X)
 
     return True
 
@@ -1733,7 +1745,7 @@ class PeImageClass():
         ByteArray = array.array('B')
         ByteArray.fromfile(PeObject, 4)
         # PE signature should be 'PE\0\0'
-        if ByteArray.tostring() != 'PE\0\0':
+        if ByteArray.tostring() != b'PE\0\0':
             self.ErrorInfo = self.FileName + ' has no valid PE signature PE00'
             return
 
@@ -1955,7 +1967,7 @@ def PackRegistryFormatGuid(Guid):
 #   @retval     Value    The integer value that the input represents
 #
 def GetIntegerValue(Input):
-    if type(Input) in (int, long):
+    if not isinstance(Input, str):
         return Input
     String = Input
     if String.endswith("U"):

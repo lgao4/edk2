@@ -118,7 +118,7 @@ class FV (object):
             FfsFileList.append(FileName)
             # Add Apriori file name to Inf file
             if not Flag:
-                self.FvInfFile.writelines("EFI_FILE_NAME = " + \
+                self.FvInfFile.append("EFI_FILE_NAME = " + \
                                             FileName          + \
                                             TAB_LINE_BREAK)
 
@@ -132,12 +132,12 @@ class FV (object):
             FileName = FfsFile.GenFfs(MacroDict, FvParentAddr=BaseAddress, IsMakefile=Flag, FvName=self.UiFvName)
             FfsFileList.append(FileName)
             if not Flag:
-                self.FvInfFile.writelines("EFI_FILE_NAME = " + \
+                self.FvInfFile.append("EFI_FILE_NAME = " + \
                                             FileName          + \
                                             TAB_LINE_BREAK)
         if not Flag:
-            SaveFileOnChange(self.InfFileName, self.FvInfFile.getvalue(), False)
-            self.FvInfFile.close()
+            FvInfFile = ''.join(self.FvInfFile)
+            SaveFileOnChange(self.InfFileName, FvInfFile, False)
         #
         # Call GenFv tool
         #
@@ -209,14 +209,14 @@ class FV (object):
                 # PI FvHeader is 0x48 byte
                 FvHeaderBuffer = FvFileObj.read(0x48)
                 Signature = FvHeaderBuffer[0x28:0x32]
-                if Signature and Signature.startswith('_FVH'):
+                if Signature and Signature.startswith(b'_FVH'):
                     GenFdsGlobalVariable.VerboseLogger("\nGenerate %s FV Successfully" % self.UiFvName)
                     GenFdsGlobalVariable.SharpCounter = 0
 
                     FvFileObj.seek(0)
                     Buffer.write(FvFileObj.read())
                     # FV alignment position.
-                    FvAlignmentValue = 1 << (ord(FvHeaderBuffer[0x2E]) & 0x1F)
+                    FvAlignmentValue = 1 << (ord(FvHeaderBuffer[0x2E:0x2F]) & 0x1F)
                     if FvAlignmentValue >= 0x400:
                         if FvAlignmentValue >= 0x100000:
                             if FvAlignmentValue >= 0x1000000:
@@ -278,54 +278,54 @@ class FV (object):
         #
         self.InfFileName = os.path.join(GenFdsGlobalVariable.FvDir,
                                    self.UiFvName + '.inf')
-        self.FvInfFile = BytesIO()
+        self.FvInfFile = []
 
         #
         # Add [Options]
         #
-        self.FvInfFile.writelines("[options]" + TAB_LINE_BREAK)
+        self.FvInfFile.append("[options]" + TAB_LINE_BREAK)
         if BaseAddress is not None:
-            self.FvInfFile.writelines("EFI_BASE_ADDRESS = " + \
+            self.FvInfFile.append("EFI_BASE_ADDRESS = " + \
                                        BaseAddress          + \
                                        TAB_LINE_BREAK)
 
         if BlockSize is not None:
-            self.FvInfFile.writelines("EFI_BLOCK_SIZE = " + \
+            self.FvInfFile.append("EFI_BLOCK_SIZE = " + \
                                       '0x%X' %BlockSize    + \
                                       TAB_LINE_BREAK)
             if BlockNum is not None:
-                self.FvInfFile.writelines("EFI_NUM_BLOCKS   = "  + \
+                self.FvInfFile.append("EFI_NUM_BLOCKS   = "  + \
                                       ' 0x%X' %BlockNum    + \
                                       TAB_LINE_BREAK)
         else:
             if self.BlockSizeList == []:
                 if not self._GetBlockSize():
                     #set default block size is 1
-                    self.FvInfFile.writelines("EFI_BLOCK_SIZE  = 0x1" + TAB_LINE_BREAK)
+                    self.FvInfFile.append("EFI_BLOCK_SIZE  = 0x1" + TAB_LINE_BREAK)
 
             for BlockSize in self.BlockSizeList:
                 if BlockSize[0] is not None:
-                    self.FvInfFile.writelines("EFI_BLOCK_SIZE  = "  + \
+                    self.FvInfFile.append("EFI_BLOCK_SIZE  = "  + \
                                           '0x%X' %BlockSize[0]    + \
                                           TAB_LINE_BREAK)
 
                 if BlockSize[1] is not None:
-                    self.FvInfFile.writelines("EFI_NUM_BLOCKS   = "  + \
+                    self.FvInfFile.append("EFI_NUM_BLOCKS   = "  + \
                                           ' 0x%X' %BlockSize[1]    + \
                                           TAB_LINE_BREAK)
 
         if self.BsBaseAddress is not None:
-            self.FvInfFile.writelines('EFI_BOOT_DRIVER_BASE_ADDRESS = ' + \
+            self.FvInfFile.append('EFI_BOOT_DRIVER_BASE_ADDRESS = ' + \
                                        '0x%X' %self.BsBaseAddress)
         if self.RtBaseAddress is not None:
-            self.FvInfFile.writelines('EFI_RUNTIME_DRIVER_BASE_ADDRESS = ' + \
+            self.FvInfFile.append('EFI_RUNTIME_DRIVER_BASE_ADDRESS = ' + \
                                       '0x%X' %self.RtBaseAddress)
         #
         # Add attribute
         #
-        self.FvInfFile.writelines("[attributes]" + TAB_LINE_BREAK)
+        self.FvInfFile.append("[attributes]" + TAB_LINE_BREAK)
 
-        self.FvInfFile.writelines("EFI_ERASE_POLARITY   = "       + \
+        self.FvInfFile.append("EFI_ERASE_POLARITY   = "       + \
                                           ' %s' %ErasePloarity    + \
                                           TAB_LINE_BREAK)
         if not (self.FvAttributeDict is None):
@@ -334,13 +334,13 @@ class FV (object):
                     if self.FvAttributeDict[FvAttribute].upper() in ('TRUE', '1'):
                         self.UsedSizeEnable = True
                     continue
-                self.FvInfFile.writelines("EFI_"            + \
+                self.FvInfFile.append("EFI_"            + \
                                           FvAttribute       + \
                                           ' = '             + \
                                           self.FvAttributeDict[FvAttribute] + \
                                           TAB_LINE_BREAK )
         if self.FvAlignment is not None:
-            self.FvInfFile.writelines("EFI_FVB2_ALIGNMENT_"     + \
+            self.FvInfFile.append("EFI_FVB2_ALIGNMENT_"     + \
                                        self.FvAlignment.strip() + \
                                        " = TRUE"                + \
                                        TAB_LINE_BREAK)
@@ -353,7 +353,7 @@ class FV (object):
                 GenFdsGlobalVariable.ErrorLogger("FV Extension Header Entries declared for %s with no FvNameGuid declaration." % (self.UiFvName))
         else:
             TotalSize = 16 + 4
-            Buffer = ''
+            Buffer = bytearray()
             if self.UsedSizeEnable:
                 TotalSize += (4 + 4)
                 ## define EFI_FV_EXT_TYPE_USED_SIZE_TYPE 0x03
@@ -380,7 +380,7 @@ class FV (object):
                 #
                 Buffer += (pack('HH', (FvUiLen + 16 + 4), 0x0002)
                            + PackGUID(Guid)
-                           + self.UiFvName)
+                           + self.UiFvName.encode('utf-8'))
 
             for Index in range (0, len(self.FvExtEntryType)):
                 if self.FvExtEntryType[Index] == 'FILE':
@@ -427,15 +427,15 @@ class FV (object):
                 if Changed:
                   if os.path.exists (self.InfFileName):
                     os.remove (self.InfFileName)
-                self.FvInfFile.writelines("EFI_FV_EXT_HEADER_FILE_NAME = "      + \
+                self.FvInfFile.append("EFI_FV_EXT_HEADER_FILE_NAME = "      + \
                                            FvExtHeaderFileName                  + \
                                            TAB_LINE_BREAK)
 
         #
         # Add [Files]
         #
-        self.FvInfFile.writelines("[files]" + TAB_LINE_BREAK)
+        self.FvInfFile.append("[files]" + TAB_LINE_BREAK)
         if VtfDict and self.UiFvName in VtfDict:
-            self.FvInfFile.writelines("EFI_FILE_NAME = "                   + \
+            self.FvInfFile.append("EFI_FILE_NAME = "                   + \
                                        VtfDict[self.UiFvName]              + \
                                        TAB_LINE_BREAK)

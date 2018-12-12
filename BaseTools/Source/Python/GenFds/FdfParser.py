@@ -161,7 +161,7 @@ class IncludeFileProfile:
         self.FileName = FileName
         self.FileLinesList = []
         try:
-            with open(FileName, "rb", 0) as fsock:
+            with open(FileName, "r") as fsock:
                 self.FileLinesList = fsock.readlines()
                 for index, line in enumerate(self.FileLinesList):
                     if not line.endswith(TAB_LINE_BREAK):
@@ -215,7 +215,7 @@ class FileProfile:
     def __init__(self, FileName):
         self.FileLinesList = []
         try:
-            with open(FileName, "rb", 0) as fsock:
+            with open(FileName, "r") as fsock:
                 self.FileLinesList = fsock.readlines()
 
         except:

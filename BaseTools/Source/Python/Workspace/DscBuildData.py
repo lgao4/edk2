@@ -139,7 +139,14 @@ def GetDependencyList(FileStack, SearchPathList):
                 continue
 
             if FileContent[0] == 0xff or FileContent[0] == 0xfe:
-                FileContent = unicode(FileContent, "utf-16")
+                FileContent = str(FileContent, "utf-16")
+                IncludedFileList = gIncludePattern.findall(FileContent)
+            else:
+                try:
+                    FileContent = str(FileContent, "utf-8")
+                    IncludedFileList = gIncludePattern.findall(FileContent)
+                except:
+                    pass
             IncludedFileList = gIncludePattern.findall(FileContent)
 
             for Inc in IncludedFileList:
@@ -1596,7 +1603,7 @@ class DscBuildData(PlatformBuildClassObject):
             FdfInfList = GlobalData.gFdfParser.Profile.InfList
         FdfModuleList = [PathClass(NormPath(Inf), GlobalData.gWorkspace, Arch=self._Arch) for Inf in FdfInfList]
         AllModulePcds = set()
-        ModuleSet = set(self._Modules.keys() + FdfModuleList)
+        ModuleSet = set(list(self._Modules.keys()) + FdfModuleList)
         for ModuleFile in ModuleSet:
             ModuleData = self._Bdb[ModuleFile, self._Arch, self._Target, self._Toolchain]
             AllModulePcds = AllModulePcds | ModuleData.PcdsName
@@ -1720,7 +1727,7 @@ class DscBuildData(PlatformBuildClassObject):
         except:
             EdkLogger.error('Build', COMMAND_FAILURE, 'Can not execute command: %s' % Command)
         Result = Process.communicate()
-        return Process.returncode, Result[0], Result[1]
+        return Process.returncode, Result[0].decode(encoding='utf-8', errors='ignore'), Result[1].decode(encoding='utf-8', errors='ignore')
 
     @staticmethod
     def IntToCString(Value, ValueSize):
