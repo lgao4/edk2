@@ -2039,6 +2039,12 @@ def CopyDict(ori_dict):
         else:
             new_dict[key] = ori_dict[key]
     return new_dict
+
+#
+# Remove the c/c++ comments: // and /* */
+#
+def RemoveCComments(ctext):
+    return re.sub('//.*?\n|/\*.*?\*/', '\n', ctext, flags=re.S)
 ##
 #
 # This acts like the main() function for the script, unless it is 'import'ed into another
