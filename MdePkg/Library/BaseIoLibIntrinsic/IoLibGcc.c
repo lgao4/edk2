@@ -38,7 +38,6 @@
   @return The value read.
 
 **/
-__inline__
 UINT8
 EFIAPI
 IoRead8 (
@@ -66,7 +65,6 @@ IoRead8 (
   @return The value written the I/O port.
 
 **/
-__inline__
 UINT8
 EFIAPI
 IoWrite8 (
@@ -93,7 +91,6 @@ IoWrite8 (
   @return The value read.
 
 **/
-__inline__
 UINT16
 EFIAPI
 IoRead16 (
@@ -123,7 +120,6 @@ IoRead16 (
   @return The value written the I/O port.
 
 **/
-__inline__
 UINT16
 EFIAPI
 IoWrite16 (
@@ -151,7 +147,6 @@ IoWrite16 (
   @return The value read.
 
 **/
-__inline__
 UINT32
 EFIAPI
 IoRead32 (
@@ -181,7 +176,6 @@ IoRead32 (
   @return The value written the I/O port.
 
 **/
-__inline__
 UINT32
 EFIAPI
 IoWrite32 (
