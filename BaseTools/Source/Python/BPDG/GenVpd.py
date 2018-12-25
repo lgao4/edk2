@@ -651,7 +651,7 @@ class GenVPD :
             EdkLogger.error("BPDG", BuildToolError.FILE_OPEN_FAILURE, "File open failed for %s" % self.VpdFileName, None)
 
         try :
-            fMapFile = open(MapFileName, "w", 0)
+            fMapFile = open(MapFileName, "w")
         except:
             # Open failed
             EdkLogger.error("BPDG", BuildToolError.FILE_OPEN_FAILURE, "File open failed for %s" % self.MapFileName, None)
@@ -676,7 +676,8 @@ class GenVPD :
             fStringIO.seek (eachPcd.PcdBinOffset)
             if isinstance(eachPcd.PcdValue, list):
                 for i in range(len(eachPcd.PcdValue)):
-                    fStringIO.write(eachPcd.PcdValue[i:i + 1])
+                    Value = eachPcd.PcdValue[i:i + 1]
+                    fStringIO.write(bytes(Value))
             else:
                 fStringIO.write (eachPcd.PcdValue)
 
