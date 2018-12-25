@@ -552,7 +552,7 @@ InternalIsDecimalDigitCharacter (
 **/
 CHAR16
 EFIAPI
-InternalCharToUpper (
+CharToUpper (
   IN      CHAR16                    Char
   )
 {
@@ -586,7 +586,7 @@ InternalHexCharToUintn (
     return Char - L'0';
   }
 
-  return (10 + InternalCharToUpper (Char) - L'A');
+  return (10 + CharToUpper (Char) - L'A');
 }
 
 /**
@@ -1181,7 +1181,7 @@ AsciiStrCmp (
 **/
 CHAR8
 EFIAPI
-InternalBaseLibAsciiToUpper (
+AsciiToUpper (
   IN      CHAR8                     Chr
   )
 {
@@ -1211,7 +1211,7 @@ InternalAsciiHexCharToUintn (
     return Char - '0';
   }
 
-  return (10 + InternalBaseLibAsciiToUpper (Char) - 'A');
+  return (10 + AsciiToUpper (Char) - 'A');
 }
 
 
@@ -1260,13 +1260,13 @@ AsciiStriCmp (
   ASSERT (AsciiStrSize (FirstString));
   ASSERT (AsciiStrSize (SecondString));
 
-  UpperFirstString  = InternalBaseLibAsciiToUpper (*FirstString);
-  UpperSecondString = InternalBaseLibAsciiToUpper (*SecondString);
+  UpperFirstString  = AsciiToUpper (*FirstString);
+  UpperSecondString = AsciiToUpper (*SecondString);
   while ((*FirstString != '\0') && (*SecondString != '\0') && (UpperFirstString == UpperSecondString)) {
     FirstString++;
     SecondString++;
-    UpperFirstString  = InternalBaseLibAsciiToUpper (*FirstString);
-    UpperSecondString = InternalBaseLibAsciiToUpper (*SecondString);
+    UpperFirstString  = AsciiToUpper (*FirstString);
+    UpperSecondString = AsciiToUpper (*SecondString);
   }
 
   return UpperFirstString - UpperSecondString;

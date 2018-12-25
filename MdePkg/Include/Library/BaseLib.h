@@ -2721,6 +2721,46 @@ AsciiStrnToUnicodeStrS (
   );
 
 /**
+  Convert a Unicode character to upper case only if
+  it maps to a valid small-case ASCII character.
+
+  This internal function only deal with Unicode character
+  which maps to a valid small-case ASCII character, i.e.
+  L'a' to L'z'. For other Unicode character, the input character
+  is returned directly.
+
+  @param  Char  The character to convert.
+
+  @retval LowerCharacter   If the Char is with range L'a' to L'z'.
+  @retval Unchanged        Otherwise.
+
+**/
+CHAR16
+EFIAPI
+CharToUpper (
+  IN      CHAR16                    Char
+  );
+
+/**
+  Converts a lowercase Ascii character to upper one.
+
+  If Chr is lowercase Ascii character, then converts it to upper one.
+
+  If Value >= 0xA0, then ASSERT().
+  If (Value & 0x0F) >= 0x0A, then ASSERT().
+
+  @param  Chr   one Ascii character
+
+  @return The uppercase value of Ascii character
+
+**/
+CHAR8
+EFIAPI
+AsciiToUpper (
+  IN      CHAR8                     Chr
+  );
+
+/**
   Converts an 8-bit value to an 8-bit BCD value.
 
   Converts the 8-bit value specified by Value to BCD. The BCD value is
