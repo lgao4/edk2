@@ -316,7 +316,7 @@ AsciiAtoi (
 **/
 STATIC
 CHAR16
-UnicodeToUpper (
+InternalUnicodeToUpper (
   IN      CHAR16                    Chr
   )
 {
@@ -332,7 +332,7 @@ UnicodeToUpper (
 **/
 STATIC
 CHAR8
-AsciiToUpper (
+InternalAsciiToUpper (
   IN      CHAR8                     Chr
   )
 {
@@ -390,12 +390,12 @@ StriCmp (
   )
 {
   while ((*String != L'\0') &&
-         (UnicodeToUpper (*String) == UnicodeToUpper (*String2))) {
+         (InternalUnicodeToUpper (*String) == InternalUnicodeToUpper (*String2))) {
     String++;
     String2++;
   }
 
-  return UnicodeToUpper (*String) - UnicodeToUpper (*String2);
+  return InternalUnicodeToUpper (*String) - InternalUnicodeToUpper (*String2);
 }
 
 /**
@@ -418,12 +418,12 @@ StriCmpUnicodeAndAscii (
   )
 {
   while ((*String != L'\0') &&
-         (UnicodeToUpper (*String) == (CHAR16)AsciiToUpper (*String2))) {
+         (InternalUnicodeToUpper (*String) == (CHAR16)InternalAsciiToUpper (*String2))) {
     String++;
     String2++;
   }
 
-  return UnicodeToUpper (*String) - (CHAR16)AsciiToUpper (*String2);
+  return InternalUnicodeToUpper (*String) - (CHAR16)InternalAsciiToUpper (*String2);
 }
 
 /**
