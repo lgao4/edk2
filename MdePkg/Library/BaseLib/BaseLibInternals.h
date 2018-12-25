@@ -470,28 +470,6 @@ InternalIsDecimalDigitCharacter (
 
 
 /**
-  Convert a Unicode character to upper case only if
-  it maps to a valid small-case ASCII character.
-
-  This internal function only deal with Unicode character
-  which maps to a valid small-case ASCII character, i.e.
-  L'a' to L'z'. For other Unicode character, the input character
-  is returned directly.
-
-  @param  Char  The character to convert.
-
-  @retval LowerCharacter   If the Char is with range L'a' to L'z'.
-  @retval Unchanged        Otherwise.
-
-**/
-CHAR16
-EFIAPI
-InternalCharToUpper (
-  IN      CHAR16                    Char
-  );
-
-
-/**
   Convert a Unicode character to numerical value.
 
   This internal function only deal with Unicode character
@@ -549,26 +527,6 @@ BOOLEAN
 EFIAPI
 InternalAsciiIsDecimalDigitCharacter (
   IN      CHAR8                     Char
-  );
-
-
-/**
-  Converts a lowercase Ascii character to upper one.
-
-  If Chr is lowercase Ascii character, then converts it to upper one.
-
-  If Value >= 0xA0, then ASSERT().
-  If (Value & 0x0F) >= 0x0A, then ASSERT().
-
-  @param  Chr   one Ascii character
-
-  @return The uppercase value of Ascii character
-
-**/
-CHAR8
-EFIAPI
-InternalBaseLibAsciiToUpper (
-  IN      CHAR8                     Chr
   );
 
 
