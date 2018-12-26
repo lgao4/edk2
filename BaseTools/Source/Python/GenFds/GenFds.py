@@ -323,6 +323,8 @@ def GenFdsApi(FdsCommandDict, WorkSpaceDataBase=None):
                             continue
                         for RegionData in RegionObj.RegionDataList:
                             if FvObj.UiFvName.upper() == RegionData.upper():
+                                if not FvObj.BaseAddress:
+                                    FvObj.BaseAddress = '0x%x' % (int(FdObj.BaseAddress, 0) + RegionObj.Offset)
                                 if FvObj.FvRegionInFD:
                                     if FvObj.FvRegionInFD != RegionObj.Size:
                                         EdkLogger.error("GenFds", FORMAT_INVALID, "The FV %s's region is specified in multiple FD with different value." %FvObj.UiFvName)
@@ -637,6 +639,7 @@ class GenFds(object):
         GuidDict = {}
         ModuleList = []
         FileGuidList = []
+        VariableGuidSet = {}
         for Arch in ArchList:
             PlatformDataBase = BuildDb.BuildObject[GenFdsGlobalVariable.ActivePlatform, Arch, GenFdsGlobalVariable.TargetName, GenFdsGlobalVariable.ToolChainTag]
             PkgList = GenFdsGlobalVariable.WorkSpace.GetPackageList(GenFdsGlobalVariable.ActivePlatform, Arch, GenFdsGlobalVariable.TargetName, GenFdsGlobalVariable.ToolChainTag)
@@ -647,6 +650,8 @@ class GenFds(object):
                 if Pcd.Type in [TAB_PCDS_DYNAMIC_HII, TAB_PCDS_DYNAMIC_EX_HII]:
                     for SkuId in Pcd.SkuInfoList:
                         Sku = Pcd.SkuInfoList[SkuId]
+                        if Sku.VariableGuid in VariableGuidSet:continue
+                        VariableGuidSet.add(Sku.VariableGuid)
                         if Sku.VariableGuid and Sku.VariableGuid in PkgGuidDict.keys():
                             GuidDict[Sku.VariableGuid] = PkgGuidDict[Sku.VariableGuid]
             for ModuleFile in PlatformDataBase.Modules:
