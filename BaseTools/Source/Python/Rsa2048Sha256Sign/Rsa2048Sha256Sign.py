@@ -157,7 +157,7 @@ if __name__ == '__main__':
   PublicKeyHexString = PublicKeyHexString.decode('utf-8')
   PublicKey = ''
   while len(PublicKeyHexString) > 0:
-    PublicKey = PublicKey + chr(int(PublicKeyHexString[0:2], 16))
+    PublicKey = PublicKey + PublicKeyHexString[0:2]
     PublicKeyHexString=PublicKeyHexString[2:]
   if Process.returncode != 0:
     sys.exit(Process.returncode)
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     #
     args.OutputFile = open(args.OutputFileName, 'wb')
     args.OutputFile.write(EFI_HASH_ALGORITHM_SHA256_GUID.bytes_le)
-    args.OutputFile.write(bytearray.fromhex(PublicKey))
+    args.OutputFile.write(bytearray.fromhex(str(PublicKey)))
     args.OutputFile.write(Signature)
     args.OutputFile.write(args.InputFileBuffer)
     args.OutputFile.close()
