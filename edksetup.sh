@@ -127,13 +127,13 @@ function SetupPython()
       fi
       if [ -z $origin_version ];then
         origin_version=$python_version
-        export PYTHON=$python
+        export PYTHON_COMMAND=$python
         continue
       fi
       ret=`echo "$origin_version < $python_version" |bc`
       if [ "$ret" -eq 1 ]; then
         origin_version=$python_version
-        export PYTHON=$python
+        export PYTHON_COMMAND=$python
       fi
     done
   fi
@@ -153,13 +153,13 @@ function SetupPython()
       if [ -z $origin_version ]
       then
         origin_version=$python_version
-        export PYTHON=$python
+        export PYTHON_COMMAND=$python
         continue
       fi
       ret=`echo "$origin_version < $python_version" |bc`
       if [ "$ret" -eq 1 ]; then
         origin_version=$python_version
-        export PYTHON=$python
+        export PYTHON_COMMAND=$python
       fi
     done
   fi

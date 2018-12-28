@@ -288,8 +288,8 @@ goto check_build_environment
 :defined_python
 if defined PYTHON3_ENABLE (
   if "%PYTHON3_ENABLE%" EQU "TRUE" (
-    set PYTHON=py -3
-    %PYTHON% --version >NUL 2>&1
+    set PYTHON_COMMAND=py -3
+    %PYTHON_COMMAND% --version >NUL 2>&1
     if %ERRORLEVEL% NEQ 0 (
       echo.
       echo !!! ERROR !!!  PYTHON3 is not installed or added to environment variables
@@ -303,14 +303,14 @@ if defined PYTHON3_ENABLE (
 
 if defined PYTHON_HOME (
   if EXIST "%PYTHON_HOME%" (
-    set PYTHON=%PYTHON_HOME%\python.exe
+    set PYTHON_COMMAND=%PYTHON_HOME%\python.exe
     goto check_freezer_path
     )
   )
 if defined PYTHONHOME (
   if EXIST "%PYTHONHOME%" (
     set PYTHON_HOME=%PYTHONHOME%
-    set PYTHON=%PYTHON_HOME%\python.exe
+    set PYTHON_COMMAND=%PYTHON_HOME%\python.exe
     goto check_freezer_path
     )
   )
@@ -332,7 +332,7 @@ if defined PYTHONHOME (
   echo                PATH = %PATH%
   if "%PYTHON3_ENABLE%" EQU "TRUE" (
     echo      PYTHON3_ENABLE = %PYTHON3_ENABLE%
-    echo             PYTHON3 = %PYTHON%
+    echo             PYTHON3 = %PYTHON_COMMAND%
   ) else (
     echo      PYTHON3_ENABLE = %PYTHON3_ENABLE%
     if defined PYTHON_HOME (
