@@ -677,7 +677,10 @@ class GenVPD :
             if isinstance(eachPcd.PcdValue, list):
                 for i in range(len(eachPcd.PcdValue)):
                     Value = eachPcd.PcdValue[i:i + 1]
-                    fStringIO.write(bytes(Value))
+                    if isinstance(bytes(Value), str):
+                        fStringIO.write(chr(Value[0]))
+                    else:
+                        fStringIO.write(bytes(Value))
             else:
                 fStringIO.write (eachPcd.PcdValue)
 
