@@ -469,7 +469,6 @@ def GenerateVfrBinSec(ModuleName, DebugDir, OutputFile):
             #
             UniGuid = b'\xe0\xc5\x13\x89\xf63\x86M\x9b\xf1C\xef\x89\xfc\x06f'
             fStringIO.write(UniGuid)
-            fStringIO.write(''.join(UniGuid))
             UniValue = pack ('Q', int (Item[1], 16))
             fStringIO.write (UniValue)
         else:
@@ -480,7 +479,6 @@ def GenerateVfrBinSec(ModuleName, DebugDir, OutputFile):
             #
             VfrGuid = b'\xb4|\xbc\xd0Gj_I\xaa\x11q\x07F\xda\x06\xa2'
             fStringIO.write(VfrGuid)
-            fStringIO.write(''.join(VfrGuid))
             type (Item[1])
             VfrValue = pack ('Q', int (Item[1], 16))
             fStringIO.write (VfrValue)

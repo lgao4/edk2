@@ -664,7 +664,7 @@ class WorkspaceAutoGen(AutoGen):
                 Content = f.read()
                 f.close()
                 m.update(Content)
-            SaveFileOnChange(os.path.join(self.BuildDir, 'AutoGen.hash'), m.hexdigest(), True)
+            SaveFileOnChange(os.path.join(self.BuildDir, 'AutoGen.hash'), m.hexdigest(), False)
             GlobalData.gPlatformHash = m.hexdigest()
 
         #
@@ -703,7 +703,7 @@ class WorkspaceAutoGen(AutoGen):
                         Content = f.read()
                         f.close()
                         m.update(Content)
-        SaveFileOnChange(HashFile, m.hexdigest(), True)
+        SaveFileOnChange(HashFile, m.hexdigest(), False)
         GlobalData.gPackageHash[Pkg.Arch][Pkg.PackageName] = m.hexdigest()
 
     def _GetMetaFiles(self, Target, Toolchain, Arch):
@@ -4080,7 +4080,7 @@ class ModuleAutoGen(AutoGen):
         if GlobalData.gBinCacheSource:
             if self.AttemptModuleCacheCopy():
                 return False
-        return SaveFileOnChange(ModuleHashFile, m.hexdigest(), True)
+        return SaveFileOnChange(ModuleHashFile, m.hexdigest(), False)
 
     ## Decide whether we can skip the ModuleAutoGen process
     def CanSkipbyHash(self):
