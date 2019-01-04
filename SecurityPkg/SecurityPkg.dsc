@@ -209,7 +209,13 @@
   SecurityPkg/Library/AuthVariableLib/AuthVariableLib.inf
 
 [Components.IA32, Components.X64]
+<<<<<<< HEAD
   SecurityPkg/VariableAuthenticated/SecureBootConfigDxe/SecureBootConfigDxe.inf
+=======
+#  SecurityPkg/UserIdentification/PwdCredentialProviderDxe/PwdCredentialProviderDxe.inf
+#  SecurityPkg/UserIdentification/UsbCredentialProviderDxe/UsbCredentialProviderDxe.inf
+#  SecurityPkg/VariableAuthenticated/SecureBootConfigDxe/SecureBootConfigDxe.inf
+>>>>>>> 4e2234d81b... SecurityPkg and NetworkPkg: Disable the drivers to be linked with Crash.
 
   #
   # TPM
@@ -267,7 +273,7 @@
   #
   # PKCS7 Verification
   #
-  SecurityPkg/Pkcs7Verify/Pkcs7VerifyDxe/Pkcs7VerifyDxe.inf
+  #SecurityPkg/Pkcs7Verify/Pkcs7VerifyDxe/Pkcs7VerifyDxe.inf
 
 [Components.IA32, Components.X64]
 

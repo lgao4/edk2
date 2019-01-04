@@ -121,10 +121,10 @@
   NetworkPkg/Application/VConfig/VConfig.inf
 
 [Components.IA32, Components.X64]
-  NetworkPkg/IpSecDxe/IpSecDxe.inf
+  #NetworkPkg/IpSecDxe/IpSecDxe.inf
   NetworkPkg/IScsiDxe/IScsiDxe.inf
   NetworkPkg/UefiPxeBcDxe/UefiPxeBcDxe.inf
-  NetworkPkg/TlsDxe/TlsDxe.inf
+  #NetworkPkg/TlsDxe/TlsDxe.inf
   NetworkPkg/TlsAuthConfigDxe/TlsAuthConfigDxe.inf
 
 [BuildOptions]
