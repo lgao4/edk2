@@ -554,8 +554,8 @@
   #   -Werror=format: Check calls to printf and scanf, etc., to make sure that the arguments supplied have
   #                   types appropriate to the format string specified.
   #
-  GCC:*_*_IA32_CC_FLAGS    = -U_WIN32 -U_WIN64 $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized
-  GCC:*_*_X64_CC_FLAGS     = -U_WIN32 -U_WIN64 $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized -Wno-error=format -Wno-format -DNO_MSABI_VA_FUNCS
+  GCC:*_*_IA32_CC_FLAGS    = -U_WIN32 -U_WIN64 -U_MSC_VER $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized -Wno-invalid-noreturn
+  GCC:*_*_X64_CC_FLAGS     = -U_WIN32 -U_WIN64 -U_MSC_VER $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized -Wno-invalid-noreturn -Wno-error=format -Wno-format -DNO_MSABI_VA_FUNCS
   GCC:*_*_ARM_CC_FLAGS     = $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized
   GCC:*_*_AARCH64_CC_FLAGS = $(OPENSSL_FLAGS) -Wno-error=maybe-uninitialized -Wno-format
 
