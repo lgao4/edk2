@@ -95,6 +95,7 @@
   # C4090: 'function' : different 'const' qualifiers
   #
   MSFT:*_*_*_CC_FLAGS = /wd4090
+  INTEL:*_*_*_CC_FLAGS = -Wno-error=invalid-noreturn
 
   GCC:*_GCC44_IA32_CC_FLAGS = "-D__cdecl=__attribute__((cdecl))" "-D__declspec(t)=__attribute__((t))"
 
