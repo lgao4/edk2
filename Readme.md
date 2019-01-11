@@ -27,7 +27,15 @@ are listed in [Maintainers.txt](Maintainers.txt).
 * [Mailing Lists](https://github.com/tianocore/tianocore.github.io/wiki/Mailing-Lists)
 * [TianoCore Bugzilla](https://bugzilla.tianocore.org)
 * [How To Contribute](https://github.com/tianocore/tianocore.github.io/wiki/How-To-Contribute)
+<<<<<<< HEAD
 * [Release Planning](https://github.com/tianocore/tianocore.github.io/wiki/EDK-II-Release-Planning)
 * [UDK2017](https://github.com/tianocore/edk2/releases/tag/vUDK2017)
 * [UDK2018](https://github.com/tianocore/edk2/releases/tag/vUDK2018)
 * [edk2-stable201811](https://github.com/tianocore/edk2/releases/tag/edk2-stable201811)
+=======
+
+# Update CLANG38 tool chain to with LLVM CLANG/LLD
+To make sure CLANG38 work in Windows, below two envs are required to be set. 
+set CLANG_HOST_BIN=n
+set CLANG38_BIN=C:\Program Files\LLVM\bin\
+>>>>>>> 2d0ccd5953... Update Readme.md to use CLANG38 tool chain in Windows OS
