@@ -2761,6 +2761,63 @@ AsciiToUpper (
   );
 
 /**
+  Convert binary data to a Base64 encoded ascii string based on RFC4648.
+
+  Produce a Null-terminated Ascii string in the output buffer specified by AsciiPtr and AsciiSize.
+  The Ascii string is produced by converting the data string specified by DataPtr and DataLen.
+
+  @param DataPtr     Input UINT8 data
+  @param DataLen    Number of UINT8 bytes of data
+  @param AsciiPtr      Pointer to output string buffer
+  @param AsciiSize   Size of ascii buffer. Set to 0 to get the size needed.
+                               Caller is responsible for passing in buffer of AsciiSize
+
+  @retval RETURN_SUCCESS                    When ascii buffer is filled in.
+  @retval RETURN_INVALID_PARAMETER   If DataPtr is NULL or AsciiSize is NULL.
+  @retval RETURN_INVALID_PARAMETER   If DataLen or AsciiSize is too big.
+  @retval RETURN_BUFFER_TOO_SMALL   If DataLen is 0 and AsciiSize is <1.
+  @retval RETURN_BUFFER_TOO_SMALL   If AsciiPtr is NULL or too small.
+
+**/
+RETURN_STATUS
+EFIAPI
+Base64Encode (
+  IN  CONST UINT8  *DataPtr,
+  IN        UINTN   DataLen,
+  OUT       CHAR8  *AsciiPtr  OPTIONAL,
+  IN OUT    UINTN  *AsciiSize
+  );
+
+/**
+  Convert Base64 ascii string to binary data based on RFC4648.
+
+  Produce Null-terminated binary data in the output buffer specified by BinPtr and BinSize.
+  The binary data is produced by converting the Base64 ascii string specified by DataPtr and DataLen.
+
+  @param DataPtr      Input ASCII characters
+  @param DataLen     Number of ASCII characters
+  @param BinPtr        Pointer to output buffer
+  @param BinSize      Caller is responsible for passing in buffer of at least BinSize.
+                                Set 0 to get the size needed. Set to bytes stored on return.
+
+  @retval RETURN_SUCCESS                    When binary buffer is filled in.
+  @retval RETURN_INVALID_PARAMETER   If DataPtr is NULL or BinSize is NULL.
+  @retval RETURN_INVALID_PARAMETER   If DataLen or BinSize is too big.
+  @retval RETURN_INVALID_PARAMETER   If BinPtr NULL and BinSize != 0.
+  @retval RETURN_INVALID_PARAMETER   If there is any Invalid character in input stream.
+  @retval RETURN_BUFFER_TOO_SMALL   If Buffer length is too small.
+
+ **/
+RETURN_STATUS
+EFIAPI
+Base64Decode (
+  IN  CONST CHAR8  *DataPtr,
+  IN        UINTN   DataLen,
+  OUT       UINT8  *BinPtr  OPTIONAL,
+  IN OUT    UINTN  *BinSize
+  );
+
+/**
   Converts an 8-bit value to an 8-bit BCD value.
 
   Converts the 8-bit value specified by Value to BCD. The BCD value is
