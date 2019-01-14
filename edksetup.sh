@@ -111,11 +111,9 @@ function SetupEnv()
   fi
 }
 
-function SetupPython()
-{    
-  if [ $PYTHON3_ENABLE ] && [ $PYTHON3_ENABLE == TRUE ]
-  then
-    if [ $origin_version ];then
+function SetupPython3()
+{
+  if [ $origin_version ];then
       origin_version=
     fi
     for python in $(whereis python3)
@@ -136,9 +134,26 @@ function SetupPython()
         export PYTHON_COMMAND=$python
       fi
     done
+    return 0
+}
+
+function SetupPython()
+{
+  if [ $PYTHON_COMMAND ] && [ -z $PYTHON3_ENABLE ];then
+    if ( command -v $PYTHON_COMMAND >/dev/null 2>&1 );then
+      return 0
+    else
+      echo $PYTHON_COMMAND Cannot be used to build or execute the python tools.
+      return 1
+    fi
+  fi
+
+  if [ $PYTHON3_ENABLE ] && [ $PYTHON3_ENABLE == TRUE ]
+  then
+    SetupPython3
   fi
   
-  if [ -z $PYTHON3_ENABLE ] || [ $PYTHON3_ENABLE != TRUE ]
+  if [ $PYTHON3_ENABLE ] && [ $PYTHON3_ENABLE != TRUE ]
   then
     if [ $origin_version ];then
       origin_version=
@@ -162,7 +177,10 @@ function SetupPython()
         export PYTHON_COMMAND=$python
       fi
     done
+    return 0
   fi
+
+  SetupPython3
 }
 
 function SourceEnv()
