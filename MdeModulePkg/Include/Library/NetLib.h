@@ -228,8 +228,12 @@ typedef struct {
 #define NTOHS(x)  SwapBytes16 (x)
 
 #define HTONS(x)   NTOHS(x)
+#ifndef NTOHLL
 #define NTOHLL(x)  SwapBytes64 (x)
+#endif
+#ifndef HTONLL
 #define HTONLL(x)  NTOHLL(x)
+#endif
 #define NTOHLLL(x) Ip6Swap128 (x)
 #define HTONLLL(x) NTOHLLL(x)
 
