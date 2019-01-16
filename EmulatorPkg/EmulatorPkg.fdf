@@ -13,6 +13,8 @@
 # WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #
 
+!ifndef $(SKIP_MAIN_BUILD)
+
 [FD.Fv_Recovery]
 #
 # In OS X PEIMs are really XIP, so we need to make this address match the malloced
@@ -312,3 +314,4 @@ INF  ShellPkg/Application/Shell/Shell.inf
     VERSION   STRING="$(INF_VERSION)" Optional BUILD_NUM=$(BUILD_NUMBER)
   }
 
+!endif
