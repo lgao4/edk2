@@ -1,0 +1,98 @@
+From 62284bede05bf1055b5864cf7cc33082d38e2bca Mon Sep 17 00:00:00 2001
+From: jiansonx <jiansongx.xu@intel.com>
+Date: Wed, 16 Jan 2019 20:03:52 +0800
+Subject: [PATCH 8/8] MdePkg/DebugLib: Dump a block of memory.
+
+BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=1371
+Add MACRO DUMP_HEX in DebugLib to dump a block of memory with formatting
+options.
+
+Contributed-under: TianoCore Contribution Agreement 1.1
+Signed-off-by: Jiansong Xu <jiansongx.xu@intel.com>
+Cc: Gao, Liming <liming.gao@intel.com>
+---
+ MdePkg/Include/Library/DebugLib.h | 70 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+
+diff --git a/MdePkg/Include/Library/DebugLib.h b/MdePkg/Include/Library/DebugLib.h
+index e6a7a357b2..fb877359dc 100644
+--- a/MdePkg/Include/Library/DebugLib.h
++++ b/MdePkg/Include/Library/DebugLib.h
+@@ -526,4 +526,74 @@ DebugPrintLevelEnabled (
+     BASE_CR (Record, TYPE, Field)
+ #endif
+ 
++/**
++  Log a formatted hexdump as the debug message on the specified debug
++  error level.
++
++  The hexdump is split into lines of 16 dumped bytes. Each line is
++  prefixed with a caller-provided string and offset. The full hexdump
++  is bracketed, and its byte ascii char also print. If the byte value
++  is not the ascii code, it will print as '.'
++
++  @param[in] ErrorLevel        The error level of the debug message.
++  @param[in] Offset            Offset to be display after PrefixFormat.
++                               Offset will be increased for each print line.
++  @param[in] Data              The data to dump.
++  @param[in] DataSize          Number of bytes in Data.
++  @param[in] LinePrefixFormat  Format string describing the prefix that is
++                               printed at the beginning of each dump line,
++                               including the bracket lines.
++
++  @param[in] ...               Arguments for LinePrefixFormat.
++**/
++#define DUMP_HEX(ErrorLevel,                                                   \
++                 Offset,                                                       \
++                 Data,                                                         \
++                 DataSize,                                                     \
++                 LinePrefixFormat,                                             \
++                 ...)                                                          \
++  do {                                                                         \
++    if (DebugPrintEnabled () && DebugPrintLevelEnabled (ErrorLevel))  {        \
++      UINT8 *DataToDump;                                                       \
++      UINT8 Val[50];                                                           \
++      UINT8 Str[20];                                                           \
++      UINT8 TempByte;                                                          \
++      UINTN Size;                                                              \
++      UINTN DumpHexIndex;                                                      \
++      UINTN LocalOffset;                                                       \
++      UINTN LocalDataSize;                                                     \
++      CONST CHAR8 *Hex = "0123456789ABCDEF";                                   \
++      LocalOffset = (Offset);                                                  \
++      LocalDataSize = (DataSize);                                              \
++      DataToDump = (UINT8 *)(Data);                                            \
++                                                                               \
++      ASSERT (DataToDump != NULL);                                             \
++                                                                               \
++      while (LocalDataSize != 0) {                                             \
++        Size = 16;                                                             \
++        if (Size > LocalDataSize) {                                            \
++          Size = LocalDataSize;                                                \
++      }                                                                        \
++                                                                               \
++      for (DumpHexIndex = 0; DumpHexIndex < Size; DumpHexIndex += 1) {         \
++        TempByte            = (UINT8) DataToDump[DumpHexIndex];                \
++        Val[DumpHexIndex * 3 + 0]  = (UINT8) Hex[TempByte >> 4];               \
++        Val[DumpHexIndex * 3 + 1]  = (UINT8) Hex[TempByte & 0xF];              \
++        Val[DumpHexIndex * 3 + 2]  = (CHAR8) ((DumpHexIndex == 7) ? '-' : ' ');\
++        Str[DumpHexIndex]          =                                           \
++               (CHAR8) ((TempByte < ' ' || TempByte > '~') ? '.' : TempByte);  \
++      }                                                                        \
++                                                                               \
++      Val[DumpHexIndex * 3]  = 0;                                              \
++      Str[DumpHexIndex]      = 0;                                              \
++                                                                               \
++      DebugPrint(ErrorLevel, LinePrefixFormat, ##__VA_ARGS__);                 \
++      DebugPrint(ErrorLevel, "%08X: %-48a *%a*\r\n", LocalOffset, Val, Str);   \
++      DataToDump = (UINT8 *)(((UINTN)DataToDump) + Size);                      \
++      LocalOffset += Size;                                                     \
++      LocalDataSize -= Size;                                                   \
++     }                                                                         \
++    }                                                                          \
++  } while (FALSE)                                                              \
++
+ #endif
+-- 
+2.16.2.windows.1
+
