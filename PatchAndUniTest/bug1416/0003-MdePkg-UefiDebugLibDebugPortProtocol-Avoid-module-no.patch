@@ -1,0 +1,34 @@
+From 7b542b2bc4d2f9443eab03e45f9defde36a7082c Mon Sep 17 00:00:00 2001
+From: jiansonx <jiansongx.xu@intel.com>
+Date: Wed, 16 Jan 2019 21:42:13 +0800
+Subject: [PATCH 3/3] MdePkg/UefiDebugLibDebugPortProtocol: Avoid module not
+ runtime safe.
+
+BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=1416
+Remove DXE_RUNTIME_DRIVER and DXE_SMM_DRIVER type from the supported
+module type list in the library INF file. Then, these library instances
+don't support DXE_RUNTIME_DRIVER and DXE_SMM_DRIVER type any more.
+
+Contributed-under: TianoCore Contribution Agreement 1.1
+Signed-off-by: Jiansong Xu <jiansongx.xu@intel.com>
+Cc: Gao, Liming <liming.gao@intel.com>
+---
+ .../UefiDebugLibDebugPortProtocol/UefiDebugLibDebugPortProtocol.inf     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/MdePkg/Library/UefiDebugLibDebugPortProtocol/UefiDebugLibDebugPortProtocol.inf b/MdePkg/Library/UefiDebugLibDebugPortProtocol/UefiDebugLibDebugPortProtocol.inf
+index 035fc5103e..1627862ef8 100644
+--- a/MdePkg/Library/UefiDebugLibDebugPortProtocol/UefiDebugLibDebugPortProtocol.inf
++++ b/MdePkg/Library/UefiDebugLibDebugPortProtocol/UefiDebugLibDebugPortProtocol.inf
+@@ -22,7 +22,7 @@
+   FILE_GUID                      = 102287b4-6b12-4D41-91e1-ebee1f3aa614
+   MODULE_TYPE                    = UEFI_DRIVER
+   VERSION_STRING                 = 1.0
+-  LIBRARY_CLASS                  = DebugLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER
++  LIBRARY_CLASS                  = DebugLib|DXE_CORE DXE_DRIVER UEFI_APPLICATION UEFI_DRIVER
+ 
+ 
+ #
+-- 
+2.16.2.windows.1
+
