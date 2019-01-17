@@ -1234,16 +1234,16 @@ STATIC UINT8 Decoding_table[] = {
   The Ascii string is produced by converting the data string specified by DataPtr and DataLen.
 
   @param DataPtr     Input UINT8 data
-  @param DataLen    Number of UINT8 bytes of data
-  @param AsciiPtr      Pointer to output string buffer
+  @param DataLen     Number of UINT8 bytes of data
+  @param AsciiPtr    Pointer to output string buffer
   @param AsciiSize   Size of ascii buffer. Set to 0 to get the size needed.
-                               Caller is responsible for passing in buffer of AsciiSize
+                     Caller is responsible for passing in buffer of AsciiSize
 
-  @retval RETURN_SUCCESS                    When ascii buffer is filled in.
+  @retval RETURN_SUCCESS             When ascii buffer is filled in.
   @retval RETURN_INVALID_PARAMETER   If DataPtr is NULL or AsciiSize is NULL.
-  @retval RETURN_INVALID_PARAMETER   If DataLen or AsciiSize is too big.
-  @retval RETURN_BUFFER_TOO_SMALL   If DataLen is 0 and AsciiSize is <1.
-  @retval RETURN_BUFFER_TOO_SMALL   If AsciiPtr is NULL or too small.
+  @retval RETURN_INVALID_PARAMETER   If DataLen or AsciiSize is bigger than (MAX_ADDRESS - (UINTN)DataPtr/AsciiPtr).
+  @retval RETURN_BUFFER_TOO_SMALL    If DataLen is 0 and AsciiSize is <1.
+  @retval RETURN_BUFFER_TOO_SMALL    If AsciiPtr is NULL or AsciiSize is smaller than required buffersize.
 
 **/
 RETURN_STATUS
@@ -1359,17 +1359,16 @@ Base64Encode (
   The binary data is produced by converting the Base64 ascii string specified by DataPtr and DataLen.
 
   @param DataPtr      Input ASCII characters
-  @param DataLen     Number of ASCII characters
-  @param BinPtr        Pointer to output buffer
+  @param DataLen      Number of ASCII characters
+  @param BinPtr       Pointer to output buffer
   @param BinSize      Caller is responsible for passing in buffer of at least BinSize.
-                                Set 0 to get the size needed. Set to bytes stored on return.
+                      Set 0 to get the size needed. Set to bytes stored on return.
 
-  @retval RETURN_SUCCESS                    When binary buffer is filled in.
+  @retval RETURN_SUCCESS             When binary buffer is filled in.
   @retval RETURN_INVALID_PARAMETER   If DataPtr is NULL or BinSize is NULL.
-  @retval RETURN_INVALID_PARAMETER   If DataLen or BinSize is too big.
-  @retval RETURN_INVALID_PARAMETER   If BinPtr NULL and BinSize != 0.
-  @retval RETURN_INVALID_PARAMETER   If there is any Invalid character in input stream.
-  @retval RETURN_BUFFER_TOO_SMALL   If Buffer length is too small.
+  @retval RETURN_INVALID_PARAMETER   If DataLen or BinSize is bigger than (MAX_ADDRESS -(UINTN)DataPtr/BinPtr ).
+  @retval RETURN_INVALID_PARAMETER   If there is any invalid character in input stream.
+  @retval RETURN_BUFFER_TOO_SMALL    If buffer length is smaller than required buffer size.
  **/
 RETURN_STATUS
 EFIAPI
@@ -1472,8 +1471,8 @@ Base64Decode (
 
   BufferSize += ActualDataLen / 4 * 3;
     if (BufferSize < 0) {
-      DEBUG((DEBUG_ERROR,"BufferSize(%d) is wrong.\n", BufferSize));
-      return RETURN_DEVICE_ERROR;
+      DEBUG((DEBUG_ERROR,"BufferSize(%d) is wrong because of bad input.\n", BufferSize));
+      return RETURN_INVALID_PARAMETER;
   }
 
   //
