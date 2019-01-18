@@ -75,7 +75,7 @@ class VariableMgr(object):
                 fisrtvalue_list = []
                 pack_data = pack(fisrtdata_flag, int(fisrtdata, 0))
                 for data_byte in range(len(pack_data)):
-                    fisrtvalue_list.append(hex(unpack("B", data[data_byte:data_byte + 1])[0]))
+                    fisrtvalue_list.append(hex(unpack("B", pack_data[data_byte:data_byte + 1])[0]))
             newvalue_list = ["0x00"] * FirstOffset + fisrtvalue_list
 
             for var_item in sku_var_info_offset_list[1:]:
