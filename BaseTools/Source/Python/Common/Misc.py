@@ -1227,7 +1227,10 @@ def ParseFieldValue (Value):
         if Value[0] == '"' and Value[-1] == '"':
             Value = Value[1:-1]
         try:
-            Value = "'" + uuid.UUID(Value).bytes_le + "'"
+            Value = str(uuid.UUID(Value).bytes_le)
+            if Value.startswith("b'"):
+                Value = Value[2:-1]
+            Value = "'" + Value + "'"
         except ValueError as Message:
             raise BadExpression(Message)
         Value, Size = ParseFieldValue(Value)
