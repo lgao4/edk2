@@ -294,12 +294,12 @@ if defined PYTHON3_ENABLE (
     set PYTHON_COMMAND=py -3
     goto check_python_available
   ) else (
-      goto check_python2
-    )
+    goto check_python2
+  )
 )
 if not defined PYTHON_COMMAND if not defined PYTHON3_ENABLE (
   set PYTHON_COMMAND=py -3
-  %PYTHON_COMMAND% PythonTest.py >PythonCheck.txt 2>&1
+  py -3 %BASE_TOOLS_PATH%\Tests\PythonTest.py >PythonCheck.txt 2>&1
   setlocal enabledelayedexpansion
   set /p PythonCheck=<"PythonCheck.txt"
   del PythonCheck.txt
@@ -315,10 +315,10 @@ if not defined PYTHON_COMMAND if not defined PYTHON3_ENABLE (
       echo.
       goto end
     ) else (
-        goto check_python2
-      ) else (
-          goto check_freezer_path
-        )
+      goto check_python2
+    )
+  ) else (
+    goto check_freezer_path
   )
 )
 
@@ -352,8 +352,8 @@ goto end
     echo.
     goto end
   ) else (
-      goto check_freezer_path
-    )
+    goto check_freezer_path
+  )
   
 :check_freezer_path
   endlocal
