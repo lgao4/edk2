@@ -342,7 +342,7 @@ echo !!! ERROR !!!  PYTHON_HOME is not defined or The value of this variable doe
 echo.
 goto end
 :check_python_available
-%PYTHON_COMMAND% PythonTest.py >PythonCheck.txt 2>&1
+%PYTHON_COMMAND% %BASE_TOOLS_PATH%\Tests\PythonTest.py >PythonCheck.txt 2>&1
   setlocal enabledelayedexpansion
   set /p PythonCheck=<"PythonCheck.txt"
   del PythonCheck.txt
