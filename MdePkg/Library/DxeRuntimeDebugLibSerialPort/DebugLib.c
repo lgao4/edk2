@@ -126,12 +126,7 @@ DebugPrint (
   ...
   )
 {
-  CHAR8    Buffer[MAX_DEBUG_MESSAGE_LENGTH];
   VA_LIST  Marker;
-
-  if (mEfiAtRuntime) {
-    return;
-  }
 
   //
   // If Format is NULL, then ASSERT().
@@ -149,8 +144,49 @@ DebugPrint (
   // Convert the DEBUG() message to an ASCII String
   //
   VA_START (Marker, Format);
-  AsciiVSPrint (Buffer, sizeof (Buffer), Format, Marker);
+  DebugPrintValist(ErrorLevel, Format, Marker);
   VA_END (Marker);
+}
+
+/**
+  Prints a debug message to the debug output device if the specified error level is enabled.
+
+  If any bit in ErrorLevel is also set in DebugPrintErrorLevelLib function
+  GetDebugPrintErrorLevel (), then print the message specified by Format and the
+  associated variable argument list to the debug output device.
+
+  If Format is NULL, then ASSERT().
+
+  If the length of the message string specificed by Format is larger than the maximum allowable
+  record length, then directly return and not print it.
+
+  @param  ErrorLevel    The error level of the debug message.
+  @param  Format        Format string for the debug message to print.
+  @param  VaListMarker  VA_LIST marker for the variable argument list.
+
+**/
+VOID
+EFIAPI
+DebugPrintValist (
+  IN  UINTN        ErrorLevel,
+  IN  CONST CHAR8  *Format,
+  IN  VA_LIST       VaListMarker
+  )
+{
+  CHAR8    Buffer[MAX_DEBUG_MESSAGE_LENGTH];
+  //
+  // If Format is NULL, then ASSERT().
+  //
+  ASSERT (Format != NULL);
+
+  //
+  // Check driver debug mask value and global mask
+  //
+  if ((ErrorLevel & GetDebugPrintErrorLevel ()) == 0) {
+    return;
+  }
+
+  AsciiVSPrint (Buffer, sizeof (Buffer), Format, VaListMarker);
 
   //
   // Send the print string to a Serial Port
