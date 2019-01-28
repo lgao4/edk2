@@ -57,7 +57,8 @@
   Pk/CryptPkcs1OaepNull.c
   Pk/CryptPkcs5Pbkdf2Null.c
   Pk/CryptPkcs7SignNull.c
-  Pk/CryptPkcs7Verify.c
+  Pk/CryptPkcs7VerifyCommon.c
+  Pk/CryptPkcs7VerifyBase.c
   Pk/CryptPkcs7VerifyEku.c
 
   Pk/CryptDhNull.c
