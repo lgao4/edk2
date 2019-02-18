@@ -5023,9 +5023,9 @@ RELEASE_CLANG38_AARCH64_DLINK_FLAGS = DEF(CLANG38_AARCH64_DLINK_FLAGS) -flto -Wl
 *_CLANGxVS15_IA32_ASM_PATH     = DEF(VS2015x86_BIN)\ml.exe
 
       *_CLANGxVS15_IA32_MAKE_FLAGS  = /nologo
-  DEBUG_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
-RELEASE_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
-NOOPT_CLANGxVS15_IA32_CC_FLAGS      = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
+  DEBUG_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+RELEASE_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+NOOPT_CLANGxVS15_IA32_CC_FLAGS      = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
 
   DEBUG_CLANGxVS15_IA32_ASM_FLAGS   = /nologo /c /WX /W3 /Cx /coff /Zd /Zi
 RELEASE_CLANGxVS15_IA32_ASM_FLAGS   = /nologo /c /WX /W3 /Cx /coff /Zd
@@ -5055,9 +5055,9 @@ NOOPT_CLANGxVS15_IA32_DLINK_FLAGS   = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:RE
 *_CLANGxVS15_X64_ASLDLINK_PATH = DEF(VS2015x86_BINX64)\link.exe
 *_CLANGxVS15_X64_ASM_PATH      = DEF(VS2015x86_BINX64)\ml64.exe
 
-  DEBUG_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
-RELEASE_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
-NOOPT_CLANGxVS15_X64_CC_FLAGS       = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers
+  DEBUG_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+RELEASE_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+NOOPT_CLANGxVS15_X64_CC_FLAGS       = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
 
   DEBUG_CLANGxVS15_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd /Zi
 RELEASE_CLANGxVS15_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd
