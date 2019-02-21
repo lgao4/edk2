@@ -50,3 +50,5 @@
   gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask      ## CONSUMES
   gEfiMdePkgTokenSpaceGuid.PcdFixedDebugPrintErrorLevel ## CONSUMES
 
+[Depex]
+  gEdkiiDebugPpiGuid

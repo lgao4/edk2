@@ -153,15 +153,24 @@ DebugAssert (
              (VOID **)&DebugPpi
              );
   
-  if (EFI_ERROR (Status)) {
-    CpuDeadLoop();
+  if (!EFI_ERROR (Status)) {
+    DebugPpi->DebugAssert (
+      FileName, 
+      LineNumber,
+      Description
+    );
+  } else {
+    //
+    // Generate a Breakpoint, DeadLoop, or NOP based on PCD settings
+    //
+    if ((PcdGet8 (PcdDebugPropertyMask) & DEBUG_PROPERTY_ASSERT_BREAKPOINT_ENABLED) != 0) {
+      CpuBreakpoint ();
+    }
+
+    if ((PcdGet8 (PcdDebugPropertyMask) & DEBUG_PROPERTY_ASSERT_DEADLOOP_ENABLED) != 0) {
+      CpuDeadLoop ();
+    }
   }
-  
-  DebugPpi->DebugAssert (
-    FileName, 
-    LineNumber,
-    Description
-  );
 }
 
 
