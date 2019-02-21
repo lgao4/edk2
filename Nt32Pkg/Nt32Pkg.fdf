@@ -166,6 +166,7 @@ APRIORI PEI {
   INF  MdeModulePkg/Universal/ReportStatusCodeRouter/Pei/ReportStatusCodeRouterPei.inf
   INF  MdeModulePkg/Universal/StatusCodeHandler/Pei/StatusCodeHandlerPei.inf
   INF  Nt32Pkg/WinNtOemHookStatusCodeHandlerPei/WinNtOemHookStatusCodeHandlerPei.inf
+  INF  MdeModulePkg/Universal/DebugServicePei/DebugServicePei.inf
   }
 APRIORI DXE {
   INF  MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
@@ -192,6 +193,7 @@ INF  MdeModulePkg/Universal/Variable/Pei/VariablePei.inf
 
 INF  Nt32Pkg/WinNtThunkPPIToProtocolPei/WinNtThunkPPIToProtocolPei.inf
 INF  MdeModulePkg/Core/DxeIplPeim/DxeIpl.inf
+INF  MdeModulePkg/Universal/DebugServicePei/DebugServicePei.inf
 
   ##
   #  DXE Phase modules
