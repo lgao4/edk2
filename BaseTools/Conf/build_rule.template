@@ -129,7 +129,8 @@
         $(OUTPUT_DIR)(+)${s_dir}(+)${s_base}.obj
 
     <Command.MSFT, Command.INTEL>
-        "$(CC)" /Fo${dst} $(CC_FLAGS) $(INC) ${src}
+        cd ${s_path}
+        "$(CC)" /Fo${dst} $(CC_FLAGS) $(INC) ${s_name}
 
     <Command.GCC, Command.RVCT>
         # For RVCTCYGWIN CC_FLAGS must be first to work around pathing issues
