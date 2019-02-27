@@ -65,6 +65,7 @@
   String.c
   FilePaths.c
   BaseLibInternals.h
+  MemoryIntrinsics.c
 
 [Sources.Ia32]
   Ia32/WriteTr.nasm
@@ -339,6 +340,18 @@
   X86PatchInstruction.c
   X86SpeculationBarrier.c
 
+  Ia32/CopyMem.c
+
+  Ia32/MathLShiftS64.c      | MSFT
+  Ia32/MathRShiftU64.c      | MSFT
+
+  Ia32/MathLShiftS64.nasm   | INTEL
+  Ia32/MathRShiftU64.nasm   | INTEL
+
+  Ia32/MathLShiftS64.S      | GCC
+  Ia32/MathRShiftU64.S      | GCC
+  Ia32/MathLShiftS64.nasm   | GCC
+  Ia32/MathRShiftU64.nasm   | GCC
 [Sources.X64]
   X64/Thunk16.nasm
   X64/CpuIdEx.nasm
@@ -542,6 +555,7 @@
   X64/RdRand.S | GCC
   ChkStkGcc.c  | GCC
 
+  X64/CopyMem.c
 [Sources.EBC]
   Ebc/CpuBreakpoint.c
   Ebc/SetJumpLongJump.c

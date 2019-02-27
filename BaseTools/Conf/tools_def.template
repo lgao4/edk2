@@ -4985,15 +4985,15 @@ RELEASE_CLANG38_AARCH64_DLINK_FLAGS = DEF(CLANG38_AARCH64_DLINK_FLAGS) -flto -Wl
 #   CLANGxVS15           - Microsoft Visual Studio 2015 (x86) professional Edition with Intel ASL
 *_CLANGxVS15_*_*_FAMILY        = INTEL
 
+DEFINE CLANGxVS15_IA32_TARGET          = --target=i686-pc-win32-coff
+DEFINE CLANGxVS15_X64_TARGET           = --target=x86_64-pc-win32-coff
+
 *_CLANGxVS15_*_MAKE_PATH       = DEF(VS2015x86_BIN)\nmake.exe
 *_CLANGxVS15_*_MAKE_FLAG       = /nologo
 *_CLANGxVS15_*_RC_PATH         = DEF(WINSDK81x86_BIN)\rc.exe
 
 *_CLANGxVS15_*_MAKE_FLAGS      = /nologo
 *_CLANGxVS15_*_SLINK_FLAGS     = /NOLOGO
-*_CLANGxVS15_*_APP_FLAGS       = /nologo /E /TC
-*_CLANGxVS15_*_PP_FLAGS        = /nologo /E /TC /FIAutoGen.h
-*_CLANGxVS15_*_VFRPP_FLAGS     = /nologo /EP /TC /DVFRCOMPILE /FI$(MODULE_NAME)StrDefs.h
 *_CLANGxVS15_*_DLINK2_FLAGS    =
 
 ##################
@@ -5002,8 +5002,6 @@ RELEASE_CLANG38_AARCH64_DLINK_FLAGS = DEF(CLANG38_AARCH64_DLINK_FLAGS) -flto -Wl
 *_CLANGxVS15_*_ASL_PATH        = DEF(WIN_IASL_BIN)
 *_CLANGxVS15_*_ASL_FLAGS       = DEF(DEFAULT_WIN_ASL_FLAGS)
 *_CLANGxVS15_*_ASL_OUTFLAGS    = DEF(DEFAULT_WIN_ASL_OUTFLAGS)
-*_CLANGxVS15_*_ASLCC_FLAGS     = DEF(MSFT_ASLCC_FLAGS)
-*_CLANGxVS15_*_ASLPP_FLAGS     = /nologo /E /TC /FIAutoGen.h
 *_CLANGxVS15_*_ASLDLINK_FLAGS  = DEF(MSFT_ASLDLINK_FLAGS)
 
 ##################
@@ -5023,9 +5021,15 @@ RELEASE_CLANG38_AARCH64_DLINK_FLAGS = DEF(CLANG38_AARCH64_DLINK_FLAGS) -flto -Wl
 *_CLANGxVS15_IA32_ASM_PATH     = DEF(VS2015x86_BIN)\ml.exe
 
       *_CLANGxVS15_IA32_MAKE_FLAGS  = /nologo
-  DEBUG_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
-RELEASE_CLANGxVS15_IA32_CC_FLAGS    = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
-NOOPT_CLANGxVS15_IA32_CC_FLAGS      = /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+  DEBUG_CLANGxVS15_IA32_CC_FLAGS    = DEF(CLANGxVS15_IA32_TARGET) /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+RELEASE_CLANGxVS15_IA32_CC_FLAGS    = DEF(CLANGxVS15_IA32_TARGET) /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+NOOPT_CLANGxVS15_IA32_CC_FLAGS      = DEF(CLANGxVS15_IA32_TARGET) /nologo -m32 /c /WX /GS- /W4 /Gs32768 /D UNICODE /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+
+*_CLANGxVS15_IA32_APP_FLAGS       = DEF(CLANGxVS15_IA32_TARGET) /nologo /E /TC
+*_CLANGxVS15_IA32_PP_FLAGS        = DEF(CLANGxVS15_IA32_TARGET) /nologo /E /TC /FIAutoGen.h
+*_CLANGxVS15_IA32_VFRPP_FLAGS     = DEF(CLANGxVS15_IA32_TARGET) /nologo /EP /TC /DVFRCOMPILE /FI$(MODULE_NAME)StrDefs.h
+*_CLANGxVS15_IA32_ASLCC_FLAGS     = DEF(CLANGxVS15_IA32_TARGET) DEF(MSFT_ASLCC_FLAGS)
+*_CLANGxVS15_IA32_ASLPP_FLAGS     = DEF(CLANGxVS15_IA32_TARGET) /nologo /E /TC /FIAutoGen.h
 
   DEBUG_CLANGxVS15_IA32_ASM_FLAGS   = /nologo /c /WX /W3 /Cx /coff /Zd /Zi
 RELEASE_CLANGxVS15_IA32_ASM_FLAGS   = /nologo /c /WX /W3 /Cx /coff /Zd
@@ -5055,9 +5059,15 @@ NOOPT_CLANGxVS15_IA32_DLINK_FLAGS   = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:RE
 *_CLANGxVS15_X64_ASLDLINK_PATH = DEF(VS2015x86_BINX64)\link.exe
 *_CLANGxVS15_X64_ASM_PATH      = DEF(VS2015x86_BINX64)\ml64.exe
 
-  DEBUG_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
-RELEASE_CLANGxVS15_X64_CC_FLAGS     = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
-NOOPT_CLANGxVS15_X64_CC_FLAGS       = /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+  DEBUG_CLANGxVS15_X64_CC_FLAGS     = DEF(CLANGxVS15_X64_TARGET) /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+RELEASE_CLANGxVS15_X64_CC_FLAGS     = DEF(CLANGxVS15_X64_TARGET) /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /O1b2s /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Gw -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+NOOPT_CLANGxVS15_X64_CC_FLAGS       = DEF(CLANGxVS15_X64_TARGET) /nologo /c /WX /GS- -m64 /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Od -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-error=microsoft-enum-forward-reference -Wno-error=tautological-pointer-compare
+
+*_CLANGxVS15_X64_APP_FLAGS       = DEF(CLANGxVS15_X64_TARGET) /nologo /E /TC
+*_CLANGxVS15_X64_PP_FLAGS        = DEF(CLANGxVS15_X64_TARGET) /nologo /E /TC /FIAutoGen.h
+*_CLANGxVS15_X64_VFRPP_FLAGS     = DEF(CLANGxVS15_X64_TARGET) /nologo /EP /TC /DVFRCOMPILE /FI$(MODULE_NAME)StrDefs.h
+*_CLANGxVS15_X64_ASLCC_FLAGS     = DEF(CLANGxVS15_X64_TARGET) DEF(MSFT_ASLCC_FLAGS)
+*_CLANGxVS15_X64_ASLPP_FLAGS     = DEF(CLANGxVS15_X64_TARGET) /nologo /E /TC /FIAutoGen.h
 
   DEBUG_CLANGxVS15_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd /Zi
 RELEASE_CLANGxVS15_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd
@@ -5164,6 +5174,117 @@ RELEASE_CLANG7WIN_X64_DLINK2_FLAGS   =
 NOOPT_CLANG7WIN_X64_CC_FLAGS         = DEF(CLANG7WIN_ALL_CC_FLAGS) -m64 "-DEFIAPI=__attribute__((ms_abi))" -mno-red-zone -mcmodel=small -O0 DEF(CLANG7WIN_X64_TARGET) -gcodeview
 NOOPT_CLANG7WIN_X64_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:REF /OPT:ICF=10 /ALIGN:32 /SECTION:.xdata,D /SECTION:.pdata,D /Machine:X64 /DLL /ENTRY:$(IMAGE_ENTRY_POINT) /SUBSYSTEM:EFI_BOOT_SERVICE_DRIVER /SAFESEH:NO /BASE:0 /DEBUG:GHASH
 NOOPT_CLANG7WIN_X64_DLINK2_FLAGS     = 
+
+
+####################################################################################
+#
+# CLANGCL8 - This configuration is used to directly produce PE/COFF binaries
+# in both Linux and Windows using clang-cl/lld-link with LTO enabled
+#
+####################################################################################
+*_CLANGCL8_*_*_FAMILY               = INTEL
+*_CLANGCL8_*_MAKE_PATH              = make
+
+DEFINE CLANGCL8_IA32_PREFIX         = ENV(CLANGCL8_BIN)
+DEFINE CLANGCL8_X64_PREFIX          = ENV(CLANGCL8_BIN)
+
+DEFINE CLANGCL8_IA32_TARGET          = --target=i686-pc-win32-coff
+DEFINE CLANGCL8_X64_TARGET           = --target=x86_64-pc-win32-coff
+
+*_CLANGCL8_*_SLINK_FLAGS            = /NOLOGO
+
+DEFINE CLANGCL8_ALL_CC_FLAGS         = /nologo /c /WX /GS- /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Z7 -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-tautological-pointer-compare -Wno-microsoft-enum-forward-reference -gcodeview
+
+DEFINE CLANGCL8_ALL_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:REF /OPT:ICF=10 /ALIGN:32 /SECTION:.xdata,D /SECTION:.pdata,D /DLL /ENTRY:$(IMAGE_ENTRY_POINT) /SUBSYSTEM:EFI_BOOT_SERVICE_DRIVER /SAFESEH:NO /BASE:0 /lldmap
+
+##################
+# ASL definitions
+##################
+*_CLANGCL8_*_ASL_PATH               = DEF(UNIX_IASL_BIN)
+*_CLANGCL8_*_ASL_FLAGS              = DEF(DEFAULT_WIN_ASL_FLAGS)
+*_CLANGCL8_*_ASL_OUTFLAGS           = DEF(DEFAULT_WIN_ASL_OUTFLAGS)
+*_CLANGCL8_*_ASLDLINK_FLAGS         = DEF(MSFT_ASLDLINK_FLAGS)
+
+###########################
+# CLANGCL8 IA32 definitions
+###########################
+*_CLANGCL8_IA32_CC_PATH             = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_SLINK_PATH          = DEF(CLANGCL8_IA32_PREFIX)llvm-lib
+*_CLANGCL8_IA32_DLINK_PATH          = DEF(CLANGCL8_IA32_PREFIX)lld-link
+*_CLANGCL8_IA32_ASLDLINK_PATH       = DEF(CLANGCL8_IA32_PREFIX)lld-link
+*_CLANGCL8_IA32_ASM_PATH            = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_PP_PATH             = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_VFRPP_PATH          = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_ASLCC_PATH          = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_ASLPP_PATH          = DEF(CLANGCL8_IA32_PREFIX)clang-cl
+*_CLANGCL8_IA32_RC_PATH             = DEF(CLANGCL8_IA32_PREFIX)llvm-rc
+
+*_CLANGCL8_IA32_PP_FLAGS            = DEF(CLANGCL8_IA32_TARGET) /nologo /E /TC /FIAutoGen.h -m32
+*_CLANGCL8_IA32_VFRPP_FLAGS         = DEF(CLANGCL8_IA32_TARGET) /nologo /EP /TC /DVFRCOMPILE /FI$(MODULE_NAME)StrDefs.h
+*_CLANGCL8_IA32_APP_FLAGS           = DEF(CLANGCL8_IA32_TARGET) /nologo /E /TC
+*_CLANGCL8_IA32_ASLCC_FLAGS         = DEF(CLANGCL8_IA32_TARGET) DEF(MSFT_ASLCC_FLAGS)
+*_CLANGCL8_IA32_ASLPP_FLAGS         = DEF(CLANGCL8_IA32_TARGET) /nologo /E /TC /FIAutoGen.h
+
+
+DEBUG_CLANGCL8_IA32_ASM_FLAGS       = /nologo /c /WX /W3 /Cx /coff /Zd /Zi
+RELEASE_CLANGCL8_IA32_ASM_FLAGS     = /nologo /c /WX /W3 /Cx /coff /Zd
+NOOPT_CLANGCL8_IA32_ASM_FLAGS       = /nologo /c /WX /W3 /Cx /coff /Zd /Zi
+
+DEBUG_CLANGCL8_IA32_NASM_FLAGS      = -Ox -f win32 -g
+RELEASE_CLANGCL8_IA32_NASM_FLAGS    = -Ox -f win32
+NOOPT_CLANGCL8_IA32_NASM_FLAGS      = -O0 -f win32 -g
+
+DEBUG_CLANGCL8_IA32_CC_FLAGS        = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_IA32_TARGET) -m32 /O1b2 /Gw
+DEBUG_CLANGCL8_IA32_DLINK_FLAGS     = DEF(CLANGCL8_ALL_DLINK_FLAGS) /MACHINE:X86 /DEBUG:GHASH
+DEBUG_CLANGCL8_IA32_DLINK2_FLAGS    =
+
+RELEASE_CLANGCL8_IA32_CC_FLAGS      = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_IA32_TARGET) -m32 /O1b2 /Gw
+RELEASE_CLANGCL8_IA32_DLINK_FLAGS   = DEF(CLANGCL8_ALL_DLINK_FLAGS) /MACHINE:X86 /MERGE:.rdata=.data
+RELEASE_CLANGCL8_IA32_DLINK2_FLAGS  =
+
+NOOPT_CLANGCL8_IA32_CC_FLAGS        = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_IA32_TARGET) -m32 /Od
+NOOPT_CLANGCL8_IA32_DLINK_FLAGS     = DEF(CLANGCL8_ALL_DLINK_FLAGS) /MACHINE:X86 /DEBUG:GHASH
+NOOPT_CLANGCL8_IA32_DLINK2_FLAGS    =
+
+##########################
+# CLANGCL8 X64 definitions
+##########################
+*_CLANGCL8_X64_CC_PATH              = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_SLINK_PATH           = DEF(CLANGCL8_X64_PREFIX)llvm-lib
+*_CLANGCL8_X64_DLINK_PATH           = DEF(CLANGCL8_X64_PREFIX)lld-link
+*_CLANGCL8_X64_ASLDLINK_PATH        = DEF(CLANGCL8_X64_PREFIX)lld-link
+*_CLANGCL8_X64_ASM_PATH             = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_PP_PATH              = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_VFRPP_PATH           = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_ASLCC_PATH           = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_ASLPP_PATH           = DEF(CLANGCL8_X64_PREFIX)clang-cl
+*_CLANGCL8_X64_RC_PATH              = DEF(CLANGCL8_IA32_PREFIX)llvm-rc
+
+*_CLANGCL8_X64_PP_FLAGS             = DEF(CLANGCL8_X64_TARGET) /nologo /E /TC /FIAutoGen.h
+*_CLANGCL8_X64_VFRPP_FLAGS          = DEF(CLANGCL8_X64_TARGET) /nologo /EP /TC /DVFRCOMPILE /FI$(MODULE_NAME)StrDefs.h
+*_CLANGCL8_X64_APP_FLAGS            = DEF(CLANGCL8_X64_TARGET) /nologo /E /TC
+*_CLANGCL8_X64_ASLCC_FLAGS          = DEF(CLANGCL8_X64_TARGET) DEF(MSFT_ASLCC_FLAGS)
+*_CLANGCL8_X64_ASLPP_FLAGS          = DEF(CLANGCL8_X64_TARGET) /nologo /E /TC /FIAutoGen.h
+
+DEBUG_CLANGCL8_X64_ASM_FLAGS      = /nologo /c /WX /W3 /Cx /Zd /Zi
+RELEASE_CLANGCL8_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd
+NOOPT_CLANGxVS15_X64_ASM_FLAGS    = /nologo /c /WX /W3 /Cx /Zd /Zi
+
+DEBUG_CLANGCL8_X64_NASM_FLAGS     = -Ox -f win64 -g
+RELEASE_CLANGCL8_X64_NASM_FLAGS   = -Ox -f win64
+NOOPT_CLANGCL8_X64_NASM_FLAGS     = -O0 -f win64 -g
+
+DEBUG_CLANGCL8_X64_CC_FLAGS         = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_X64_TARGET) -m64 /O1b2s /Gw -flto
+DEBUG_CLANGCL8_X64_DLINK_FLAGS      = DEF(CLANGCL8_ALL_DLINK_FLAGS) /Machine:X64 /DEBUG:GHASH
+DEBUG_CLANGCL8_X64_DLINK2_FLAGS     =
+
+RELEASE_CLANGCL8_X64_CC_FLAGS       = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_X64_TARGET) -m64 /O1b2s /Gw -flto
+RELEASE_CLANGCL8_X64_DLINK_FLAGS    = DEF(CLANGCL8_ALL_DLINK_FLAGS) /Machine:X64 /MERGE:.rdata=.data
+RELEASE_CLANGCL8_X64_DLINK2_FLAGS   =
+
+NOOPT_CLANGCL8_X64_CC_FLAGS         = DEF(CLANGCL8_ALL_CC_FLAGS) DEF(CLANGCL8_X64_TARGET) -m64 /Od
+NOOPT_CLANGCL8_X64_DLINK_FLAGS      = DEF(CLANGCL8_ALL_DLINK_FLAGS) /Machine:X64 /DEBUG:GHASH
+NOOPT_CLANGCL8_X64_DLINK2_FLAGS     =
 
 ####################################################################################
 #
