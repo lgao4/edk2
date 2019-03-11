@@ -52,6 +52,23 @@ DebugPrint (
   ...
   )
 {
+  VA_LIST         Marker;
+
+  ASSERT(Format != NULL);
+
+  VA_START(Marker, Format);
+  DebugPrintValist(ErrorLevel, Format, Marker);
+  VA_END(Marker);
+}
+
+VOID
+EFIAPI
+DebugPrintValist (
+  IN  UINTN        ErrorLevel,
+  IN  CONST CHAR8  *Format,
+  IN  VA_LIST       VaListMarker
+  )
+{
   CHAR8    Buffer[MAX_DEBUG_MESSAGE_LENGTH];
   VA_LIST  Marker;
   UINTN    Length;
