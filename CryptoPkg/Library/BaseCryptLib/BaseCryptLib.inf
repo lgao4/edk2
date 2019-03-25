@@ -50,6 +50,7 @@
   Pk/CryptPkcs5Pbkdf2.c
   Pk/CryptPkcs7Sign.c
   Pk/CryptPkcs7Verify.c
+  Pk/CryptPkcs7VerifyEku.c
   Pk/CryptDh.c
   Pk/CryptX509.c
   Pk/CryptAuthenticode.c
