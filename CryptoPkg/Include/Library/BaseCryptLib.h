@@ -2377,41 +2377,6 @@ Pkcs5HashPassword (
   );
 
 /**
-  Encrypts a blob using PKCS1v2 (RSAES-OAEP) schema. On success, will return the encrypted message in
-  in a newly allocated buffer.
-
-  Things that can cause a failure include:
-  - X509 key size does not match any known key size.
-  - Fail to parse X509 certificate.
-  - Fail to allocate an intermediate buffer.
-  - NULL pointer provided for a non-optional parameter.
-  - Data size is too large for the provided key size (max size is a function of key size and hash digest size).
-
-  @param[in]  PublicKey     A pointer to the DER-encoded X509 certificate that will be used to encrypt the data.
-  @param[in]  PublicKeySize Size of the X509 cert buffer.
-  @param[in]  InData        Data to be encrypted.
-  @param[in]  InDataSize    Size of the data buffer.
-  @param[in]  PrngSeed      [Optional] If provided, a pointer to a random seed buffer to be used when initializing the PRNG. NULL otherwise.
-  @param[in]  PrngSeedSize  [Optional] If provided, size of the random seed buffer. 0 otherwise.
-  @param[out] EncryptedData       Pointer to an allocated buffer containing the encrypted message.
-  @param[out] EncryptedDataSize   Size of the encrypted message buffer.
-
-  @retval     TRUE  Encryption was successful.
-  @retval     FALSE Encryption failed.
-
-**/
-BOOLEAN
-Pkcs1v2Encrypt (
-  IN   CONST UINT8  *PublicKey,
-  IN   UINTN        PublicKeySize,
-  IN   UINT8        *InData,
-  IN   UINTN        InDataSize,
-  IN   CONST UINT8  *PrngSeed OPTIONAL,
-  IN   UINTN        PrngSeedSize OPTIONAL,
-  OUT  UINT8        **EncryptedData,
-  OUT  UINTN        *EncryptedDataSize
-  );
-/**
   The 3rd parameter of Pkcs7GetSigners will return all embedded
   X.509 certificate in one given PKCS7 signature. The format is:
   //
