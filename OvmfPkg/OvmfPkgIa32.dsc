@@ -73,12 +73,14 @@
 
 [BuildOptions.common.EDKII.DXE_RUNTIME_DRIVER]
   GCC:*_*_*_DLINK_FLAGS = -z common-page-size=0x1000
+  CLANGGCC:*_*_*_DLINK_FLAGS = -z max-page-size=0x1000
   XCODE:*_*_*_DLINK_FLAGS =
 
 # Force PE/COFF sections to be aligned at 4KB boundaries to support page level
 # protection of DXE_SMM_DRIVER/SMM_CORE modules
 [BuildOptions.common.EDKII.DXE_SMM_DRIVER, BuildOptions.common.EDKII.SMM_CORE]
   GCC:*_*_*_DLINK_FLAGS = -z common-page-size=0x1000
+  CLANGGCC:*_*_*_DLINK_FLAGS = -z max-page-size=0x1000
   XCODE:*_*_*_DLINK_FLAGS =
 
 ################################################################################
@@ -832,7 +834,7 @@
   OvmfPkg/Csm/Csm16/Csm16.inf
 !endif
 
-!if $(TOOL_CHAIN_TAG) != "XCODE5"
+!if $(TOOL_CHAIN_TAG) != "XCODE5" AND $(TOOL_CHAIN_TAG) != "CLANG8ELF"
   ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf {
     <PcdsFixedAtBuild>
       gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
