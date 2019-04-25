@@ -239,7 +239,7 @@ IsTextShdr (
   Elf_Shdr *Shdr
   )
 {
-  return (BOOLEAN) ((Shdr->sh_flags & (SHF_WRITE | SHF_ALLOC)) == SHF_ALLOC);
+  return (BOOLEAN) ((Shdr->sh_flags & (SHF_EXECINSTR | SHF_ALLOC)) == (SHF_EXECINSTR | SHF_ALLOC));
 }
 
 STATIC
@@ -262,7 +262,7 @@ IsDataShdr (
   if (IsHiiRsrcShdr(Shdr)) {
     return FALSE;
   }
-  return (BOOLEAN) (Shdr->sh_flags & (SHF_WRITE | SHF_ALLOC)) == (SHF_ALLOC | SHF_WRITE);
+  return (BOOLEAN) (Shdr->sh_flags & (SHF_EXECINSTR | SHF_WRITE | SHF_ALLOC)) == (SHF_ALLOC | SHF_WRITE);
 }
 
 STATIC
@@ -894,12 +894,7 @@ WriteSections64 (
             SymName = (const UINT8 *)"<unknown>";
           }
 
-          Error (NULL, 0, 3000, "Invalid",
-                 "%s: Bad definition for symbol '%s'@%#llx or unsupported symbol type.  "
-                 "For example, absolute and undefined symbols are not supported.",
-                 mInImageName, SymName, Sym->st_value);
-
-          exit(EXIT_FAILURE);
+          continue;
         }
         SymShdr = GetShdrByIndex(Sym->st_shndx);
 
