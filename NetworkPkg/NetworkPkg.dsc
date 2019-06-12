@@ -124,7 +124,7 @@
   #NetworkPkg/IpSecDxe/IpSecDxe.inf
   NetworkPkg/IScsiDxe/IScsiDxe.inf
   NetworkPkg/UefiPxeBcDxe/UefiPxeBcDxe.inf
-  #NetworkPkg/TlsDxe/TlsDxe.inf
+  NetworkPkg/TlsDxe/TlsDxe.inf
   NetworkPkg/TlsAuthConfigDxe/TlsAuthConfigDxe.inf
 
 [BuildOptions]
