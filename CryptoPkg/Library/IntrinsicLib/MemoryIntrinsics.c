@@ -21,7 +21,15 @@ typedef UINTN  size_t;
 
 /* OpenSSL will use floating point support, and C compiler produces the _fltused
    symbol by default. Simply define this symbol here to satisfy the linker. */
-int _fltused = 1;
+volatile int _fltused = 1;
+
+RETURN_STATUS
+EFIAPI
+BaseIntrinsicLibConstructor(void)
+{
+  _fltused = 0;
+  return RETURN_SUCCESS;
+}
 
 /* Sets buffers to a specified character */
 void * memset (void *dest, int ch, size_t count)
