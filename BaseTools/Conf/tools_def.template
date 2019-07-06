@@ -5193,7 +5193,7 @@ DEFINE CLANGCL8_X64_TARGET           = --target=x86_64-unknown-windows
 
 *_CLANGCL8_*_SLINK_FLAGS            = /NOLOGO
 
-DEFINE CLANGCL8_ALL_CC_FLAGS         = /nologo /c /WX /GS- /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Z7 -Wno-error=unused-parameter -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-tautological-pointer-compare -Wno-microsoft-enum-forward-reference -gcodeview
+DEFINE CLANGCL8_ALL_CC_FLAGS         = /nologo /c /WX /GS- /W4 /Gs32768 /D UNICODE /Gy /FIAutoGen.h /EHs-c- /GR- /GF /Z7 -Wno-error=sign-compare -Wno-error=missing-field-initializers -Wno-tautological-pointer-compare -Wno-microsoft-enum-forward-reference -Wno-unused-parameter -gcodeview
 
 DEFINE CLANGCL8_ALL_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:REF /OPT:ICF=10 /ALIGN:32 /SECTION:.xdata,D /SECTION:.pdata,D /DLL /ENTRY:$(IMAGE_ENTRY_POINT) /SUBSYSTEM:EFI_BOOT_SERVICE_DRIVER /SAFESEH:NO /BASE:0 /lldmap
 
