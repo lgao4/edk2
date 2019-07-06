@@ -32,6 +32,7 @@
 
 #define TLS_INSTANCE_SIGNATURE   SIGNATURE_32 ('T', 'L', 'S', 'I')
 
+extern volatile int _fltused;
 ///
 /// TLS Service Data
 ///
