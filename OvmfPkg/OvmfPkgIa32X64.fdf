@@ -83,7 +83,11 @@ gUefiOvmfPkgTokenSpaceGuid.PcdOvmfSecPeiTempRamBase|gUefiOvmfPkgTokenSpaceGuid.P
 gUefiOvmfPkgTokenSpaceGuid.PcdOvmfPeiMemFvBase|gUefiOvmfPkgTokenSpaceGuid.PcdOvmfPeiMemFvSize
 FV = PEIFV
 
-0x100000|0xB00000
+0x100000|0x010000
+gEfiMdeModulePkgTokenSpaceGuid.PcdVpdBaseAddress|gUefiOvmfPkgTokenSpaceGuid.PcdOvmfVpdMemSize
+#VPD Data
+
+0x110000|0xAF0000
 gUefiOvmfPkgTokenSpaceGuid.PcdOvmfDxeMemFvBase|gUefiOvmfPkgTokenSpaceGuid.PcdOvmfDxeMemFvSize
 FV = DXEFV
 
@@ -142,6 +146,7 @@ READ_LOCK_STATUS   = TRUE
 
 APRIORI PEI {
   INF  MdeModulePkg/Universal/PCD/Pei/Pcd.inf
+  INF  OvmfPkg/PlatformPei/PlatformPei.inf
 }
 
 #
@@ -259,6 +264,7 @@ INF  MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
 INF  MdeModulePkg/Universal/SetupBrowserDxe/SetupBrowserDxe.inf
 INF  MdeModulePkg/Universal/DisplayEngineDxe/DisplayEngineDxe.inf
 INF  MdeModulePkg/Universal/MemoryTest/NullMemoryTestDxe/NullMemoryTestDxe.inf
+INF  MdeModulePkg/Universal/DriverSampleDxe/DriverSampleDxe.inf
 
 INF  OvmfPkg/SioBusDxe/SioBusDxe.inf
 !ifndef $(SOURCE_DEBUG_ENABLE)
@@ -385,6 +391,7 @@ FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
      # and then both firmware volumes will be compressed in a single
      # compression operation in order to achieve better overall compression.
      #
+     SECTION RAW = $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/FV/8C3D856A-9BE6-468E-850A-24F7A8D38E08.bin
      SECTION FV_IMAGE = PEIFV
      SECTION FV_IMAGE = DXEFV
    }

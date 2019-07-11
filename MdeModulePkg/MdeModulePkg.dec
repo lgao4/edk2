@@ -22,7 +22,7 @@
 
 [Includes]
   Include
-
+  Universal/DriverSampleDxe
 
 [LibraryClasses]
   ##  @libraryclass  Defines a set of methods to reset whole system.

@@ -23,6 +23,7 @@
   BUILD_TARGETS                  = NOOPT|DEBUG|RELEASE
   SKUID_IDENTIFIER               = DEFAULT
   FLASH_DEFINITION               = OvmfPkg/OvmfPkgIa32X64.fdf
+  VPD_TOOL_GUID                  = 8C3D856A-9BE6-468E-850A-24F7A8D38E08
 
   #
   # Defines for default states.  These can be changed on the command line.
@@ -32,6 +33,7 @@
   DEFINE SMM_REQUIRE             = FALSE
   DEFINE TPM2_ENABLE             = FALSE
   DEFINE TPM2_CONFIG_ENABLE      = FALSE
+  DEFINE DEBUG_ON_SERIAL_PORT    = TRUE
 
   #
   # Network definition
@@ -99,6 +101,10 @@
 ################################################################################
 [SkuIds]
   0|DEFAULT
+
+[DefaultStores]
+  0|STANDARD             # UEFI Standard default  0|STANDARD is reserved.
+  1|MANUFACTURING        # UEFI Manufacturing default 1|MANUFACTURING is reserved.
 
 ################################################################################
 #
@@ -582,6 +588,54 @@
   gEfiSecurityPkgTokenSpaceGuid.PcdTpmInstanceGuid|{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
 !endif
 
+[PcdsDynamicHii]
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData|L"MyIfrNVData"|gDriverSampleFormSetGuid|0x00|{0x0}|NV,BS
+
+[PcdsDynamicHii.common.DEFAULT.STANDARD]
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.SuppressGrayOutSomething|0x2
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BootOrderLarge|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.ChooseToActivateNuclearWeaponry|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BootOrder|{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.OrderedList|{0x01,0x02,0x03,0x00,0x00,0x00,0x00,0x00}
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.TestLateCheck|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.TestLateCheck2|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.QuestionAboutTreeHugging|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.HowOldAreYouInYearsManual|0x15
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.HowOldAreYouInYearsManual|0x15
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.HowOldAreYouInYears|0x12
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.GetDefaultValueFromAccess|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.GetDefaultValueFromCallBack|0x12
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.GetDefaultValueFromCallBackForOrderedList|{0x00,0x00,0x00}
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.ChooseToActivateNuclearWeaponry|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.DynamicRefresh|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.Match2|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.SerialPortNo|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.SerialPortStatus|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.SerialPortIo|0x3f8
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.SerialPortIrq|0x4
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.RefreshGuidCount|0x0
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.MyBitData.NestBitCheckbox|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.MyBitData.NestBitOneof|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.MyBitData.NestBitNumeric|0x6
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.MyBitData.NestByteField|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BitOneof|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BitCheckbox|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BitNumeric|0x10
+
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar|L"MyEfiVar"|gDriverSampleFormSetGuid|0x00|{0x0}|NV, BS
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar.Field8|0x12
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar.Field16|0x1
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar.SubmittedCallback|0x12
+
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiUnionData|L"MyEfiUnionVar"|gDriverSampleFormSetGuid|0x00|{0x0}|NV, BS
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiUnionData.UnionNumeric|0x9
+
+[PcdsDynamicHii.common.DEFAULT.MANUFACTURING]
+gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BootOrderLarge|0x4
+
+[PcdsDynamicExVpd.common.DEFAULT]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdNvStoreDefaultValueBuffer|*
+
 ################################################################################
 #
 # Components Section - list of all EDK II Modules needed by this Platform.
@@ -922,3 +976,8 @@
       NULL|SecurityPkg/Library/HashInstanceLibSha512/HashInstanceLibSha512.inf
   }
 !endif
+
+  MdeModulePkg/Universal/DriverSampleDxe/DriverSampleDxe.inf {
+    <LibraryClasses>
+      PcdLib|MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+  }

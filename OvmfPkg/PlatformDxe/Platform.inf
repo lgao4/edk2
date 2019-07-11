@@ -47,6 +47,10 @@
 [Pcd]
   gEfiMdeModulePkgTokenSpaceGuid.PcdVideoHorizontalResolution
   gEfiMdeModulePkgTokenSpaceGuid.PcdVideoVerticalResolution
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiVar
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiBitsVarStore
+  gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyEfiUnionData
 
 [Protocols]
   gEfiDevicePathProtocolGuid      ## PRODUCES
