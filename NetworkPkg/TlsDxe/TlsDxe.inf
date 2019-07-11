@@ -24,8 +24,6 @@
   MODULE_TYPE               = UEFI_DRIVER
   VERSION_STRING            = 1.0
   ENTRY_POINT               = TlsDriverEntryPoint
-  UNLOAD_IMAGE              = TlsUnload
-  MODULE_UNI_FILE           = TlsDxe.uni
 
 #
 #  VALID_ARCHITECTURES           = IA32 X64
@@ -33,33 +31,12 @@
 
 [Packages]
   MdePkg/MdePkg.dec
-  MdeModulePkg/MdeModulePkg.dec
-  CryptoPkg/CryptoPkg.dec
 
 [Sources]
-  TlsDriver.h
   TlsDriver.c
-  TlsProtocol.c
-  TlsConfigProtocol.c
-  TlsImpl.h
-  TlsImpl.c
+
 
 [LibraryClasses]
   UefiDriverEntryPoint
-  UefiBootServicesTableLib
-  MemoryAllocationLib
-  BaseMemoryLib
   BaseLib
-  UefiLib
-  DebugLib
-  BaseCryptLib
-  TlsLib
-
-[Protocols]
-  gEfiTlsServiceBindingProtocolGuid          ## PRODUCES
-  gEfiTlsProtocolGuid                        ## PRODUCES
-  gEfiTlsConfigurationProtocolGuid           ## PRODUCES
-
-[UserExtensions.TianoCore."ExtraFiles"]
-  TlsDxeExtra.uni
 
