@@ -11,7 +11,7 @@ Portions copyright (c) 2008 - 2009, Apple Inc. All rights reserved.<BR>
 SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
- 
+  
 
 #ifndef __BASE_H__
 #define __BASE_H__
