@@ -10,7 +10,7 @@ Copyright (c) 2006 - 2018, Intel Corporation. All rights reserved.<BR>
 SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
- 
+
 #ifndef __PI_UEFI_H__
 #define __PI_UEFI_H__
 
