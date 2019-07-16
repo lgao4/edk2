@@ -6767,7 +6767,7 @@ parse_callout_args(int skip_mode, int cterm, UChar** src, UChar* end,
           int fixed = 0;
           if (cn > 0) {
             long rl;
-            r = parse_long(enc, buf, bufend, 1, LONG_MAX, &rl);
+            r = parse_long(enc, buf, bufend, 1, (long)(INTN)LONG_MAX, &rl);
             if (r == ONIG_NORMAL) {
               vals[n].l = rl;
               fixed = 1;

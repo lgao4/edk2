@@ -14,6 +14,9 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 ///
 #define MDE_CPU_IA32
 
+//#undef __USER_LABEL_PREFIX__
+//#define __USER_LABEL_PREFIX__ _
+
 //
 // Make sure we are using the correct packing rules per EFI specification
 //

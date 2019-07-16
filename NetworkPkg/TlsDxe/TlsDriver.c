@@ -282,7 +282,7 @@ TlsDriverEntryPoint (
 
 ON_CLEAN_SERVICE:
   TlsCleanService (TlsService);
-
+  _fltused = 0;
   return Status;
 }
 
