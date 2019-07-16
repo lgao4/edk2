@@ -15,6 +15,24 @@
 
 #include <Library/BaseMemoryLib.h>
 
+typedef UINTN size_t;
+
+// static void __memcpy(void *dest, const void *src, size_t n)
+// {
+  // unsigned char *d = dest;
+  // unsigned char const *s = src;
+
+  // while (n--)
+    // *d++ = *s++;
+// }
+
+// void *memcpy(void *dest, const void *src, size_t n)
+// {
+  // __memcpy(dest, src, n);
+  // return dest;
+// }
+
+
 unsigned char *ssl_add_serverhello_tlsext_new(unsigned char *buf)
 {
     unsigned char *ret = buf;
