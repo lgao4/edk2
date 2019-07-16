@@ -655,7 +655,7 @@ PeiCoreEntry (
 VOID
 PeiCheckAndSwitchStack (
   IN CONST EFI_SEC_PEI_HAND_OFF         *SecCoreData,
-  IN PEI_CORE_INSTANCE                  *Private
+  IN PEI_CORE_INSTANCE                  *volatile  Private
   )
 {
   VOID                                  *LoadFixPeiCodeBegin;
