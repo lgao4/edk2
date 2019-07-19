@@ -390,6 +390,12 @@ FILE FV_IMAGE = 9E21FD93-9C72-4c15-8C4B-E77F1DB2D792 {
    }
  }
 
+FILE FV_IMAGE = 6721D40D-EB8D-444C-8514-066C1A9B088A {
+   SECTION GUIDED EE4E5898-3914-4259-9D6E-DC7BD79403CF PROCESSING_REQUIRED = TRUE {
+     SECTION FV_IMAGE = OvmfPkg/Test.Fv
+   }
+ }
+
 !include DecomprScratchEnd.fdf.inc
 
 ################################################################################
