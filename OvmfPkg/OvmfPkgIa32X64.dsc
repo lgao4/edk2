@@ -702,9 +702,19 @@ gEfiStructuredPcdPkgTokenSpaceGuid.PcdMyIfrNVData.BootOrderLarge|0x4
   # DXE Phase modules
   #
   MdeModulePkg/Core/Dxe/DxeMain.inf {
+    <BuildOptions>
+      *_*_*_CC_FLAGS = -UMDEPKG_NDEBUG
     <LibraryClasses>
       NULL|MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf
       DevicePathLib|MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
+      !ifdef $(DEBUG_ON_SERIAL_PORT)
+        DebugLib|MdePkg/Library/BaseDebugLibSerialPort/BaseDebugLibSerialPort.inf
+      !else
+        DebugLib|OvmfPkg/Library/PlatformDebugLibIoPort/PlatformDebugLibIoPort.inf
+      !endif
+    <PcdsFixedAtBuild>
+      gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x8000004F
+      gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x2F
   }
 
   MdeModulePkg/Universal/ReportStatusCodeRouter/RuntimeDxe/ReportStatusCodeRouterRuntimeDxe.inf
