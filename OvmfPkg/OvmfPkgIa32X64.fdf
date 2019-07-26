@@ -363,6 +363,37 @@ INF  SecurityPkg/Tcg/Tcg2Config/Tcg2ConfigDxe.inf
 !endif
 !endif
 
+FILE PEIM = 76ed893a-b2f9-4c7d-a05f-1ea170ecf6cd {
+  SECTION Align = Auto PE32 = OvmfPkg/Test/TestPeim.efi
+  SECTION PEI_DEPEX_EXP = {gEfiPeiStallPpiGuid}
+  SECTION UI = "TestPeim"
+}
+
+FILE DRIVER = FC637F1E-50DA-4013-924D-C531F1DFF38B {
+  SECTION PE32 = OvmfPkg/Test/TestDxe.efi
+  SECTION UI = "TestDxe"
+  SECTION DXE_DEPEX = OvmfPkg/Test/TestDxe.depex
+}
+
+FILE SMM = C69F8D29-B4DE-4628-86CD-2595C3759940 {
+  SECTION PE32 = OvmfPkg/Test/TestSmm.efi
+  SECTION UI = "TestSmm"
+  SECTION SMM_DEPEX = OvmfPkg/Test/TestSmm.depex
+}
+
+FILE APPLICATION = A3D1DDB4-ADB2-4a08-A038-73056730E853 {
+  SECTION PE32 = OvmfPkg/Test/TestApp.efi
+  SECTION UI = "TestApp"
+}
+
+FILE FREEFORM = 7BB28B99-61BB-11D5-9A5D-0090273FC14D {
+  SECTION RAW = MdeModulePkg/Logo/Logo.bmp
+}
+
+FILE RAW = 3fb89fe4-cfc5-4c54-9eee-e3df016e3269 Align=4K {
+  MdeModulePkg/Logo/Logo.bmp
+}
+
 ################################################################################
 
 [FV.FVMAIN_COMPACT]
