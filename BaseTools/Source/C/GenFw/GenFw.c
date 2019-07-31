@@ -4,7 +4,7 @@ Converts a pe32+ image to an FW, Te image type, or other specific image.
 Copyright (c) 2004 - 2018, Intel Corporation. All rights reserved.<BR>
 SPDX-License-Identifier: BSD-2-Clause-Patent
 
-**/
+**/ 
 
 #include "WinNtInclude.h"
 
@@ -999,7 +999,7 @@ Returns:
     CopyMem (
       FileBuffer + SectionHeader->PointerToRawData,
       (VOID*) (UINTN) (ImageContext.ImageAddress + SectionHeader->VirtualAddress),
-      SectionHeader->SizeOfRawData
+      SectionHeader->SizeOfRawData < SectionHeader->Misc.VirtualSize ? SectionHeader->SizeOfRawData : SectionHeader->Misc.VirtualSize
       );
   }
 
