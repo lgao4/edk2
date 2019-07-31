@@ -16,7 +16,12 @@
 
     DEFAULT REL
     SECTION .text
-
+;extern ASM_PFX(_fltused) 
+global ASM_PFX(_fltused)
+ASM_PFX(_fltused):
+    mov     eax, ecx
+    ltr     ax
+    ret
 ;------------------------------------------------------------------------------
 ; VOID
 ; AsmWriteTr (

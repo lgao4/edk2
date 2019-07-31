@@ -22,6 +22,7 @@
   @param  Idtr  The pointer to a IDTR descriptor.
 
 **/
+
 VOID
 EFIAPI
 AsmWriteIdtr (

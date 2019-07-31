@@ -44,6 +44,7 @@
   EdkiiSystemCapsuleLib
   IniParsingLib
   PrintLib
+  BaseLib
 
 [Ppis]
   gEfiPeiRecoveryModulePpiGuid            ## PRODUCES
