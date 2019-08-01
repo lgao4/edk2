@@ -333,14 +333,14 @@ Returns:
 
   return EFI_SUCCESS;
 }
-
 INTN
 EFIAPI
 main (
-  IN  INTN  Argc,
+  IN  int  Argc,
   IN  CHAR8 **Argv,
   IN  CHAR8 **Envp
   )
+
 /*++
 
 Routine Description:
@@ -404,7 +404,7 @@ Returns:
       SetProcessAffinityMask (GetCurrentProcess (), (INTN)(BIT0 << LowBit));
     }
   }
-
+  FirmwareVolumesStr = (CHAR16 *) PcdGetPtr (PcdEmuFirmwareVolume);
   //
   // Make some Windows calls to Set the process to the highest priority in the
   //  idle class. We need this to have good performance.

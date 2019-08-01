@@ -687,7 +687,7 @@ typedef char* VA_LIST;
 /// Variable used to traverse the list of arguments. This type can vary by
 /// implementation and could be an array or structure.
 ///
-typedef __builtin_ms_va_list VA_LIST;
+typedef __builtin_va_list VA_LIST;
 
 #define VA_START(Marker, Parameter)  __builtin_ms_va_start (Marker, Parameter)
 

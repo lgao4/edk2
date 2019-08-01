@@ -297,13 +297,13 @@ typedef INT32   INTN;
   #define EFIAPI
 #endif
 
-#if defined(__GNUC__)
+
   ///
   /// For GNU assembly code, .global or .globl can declare global symbols.
   /// Define this macro to unify the usage.
   ///
   #define ASM_GLOBAL .globl
-#endif
+
 
 /**
   Return the pointer to the first instruction of a function given a function pointer.

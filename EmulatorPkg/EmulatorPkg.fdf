@@ -194,7 +194,7 @@ INF  EmulatorPkg/EmuSnpDxe/EmuSnpDxe.inf
 
 INF FatPkg/EnhancedFatDxe/Fat.inf
 
-INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
+#INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
 INF  ShellPkg/Application/Shell/Shell.inf
 
 [Rule.Common.SEC]
