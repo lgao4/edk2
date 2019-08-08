@@ -193,8 +193,9 @@ INF  EmulatorPkg/EmuSnpDxe/EmuSnpDxe.inf
 !include NetworkPkg/Network.fdf.inc
 
 INF FatPkg/EnhancedFatDxe/Fat.inf
-
+!if $(TOOL_CHAIN_TAG) != "CLANG7WIN"
 INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
+!endif
 INF  ShellPkg/Application/Shell/Shell.inf
 
 [Rule.Common.SEC]

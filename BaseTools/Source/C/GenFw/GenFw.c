@@ -999,7 +999,7 @@ Returns:
     CopyMem (
       FileBuffer + SectionHeader->PointerToRawData,
       (VOID*) (UINTN) (ImageContext.ImageAddress + SectionHeader->VirtualAddress),
-      SectionHeader->SizeOfRawData
+      SectionHeader->SizeOfRawData < SectionHeader->Misc.VirtualSize ? SectionHeader->SizeOfRawData : SectionHeader->Misc.VirtualSize
       );
   }
 
