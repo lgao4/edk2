@@ -32,7 +32,6 @@ are listed in [Maintainers.txt](Maintainers.txt).
 * [UDK2018](https://github.com/tianocore/edk2/releases/tag/vUDK2018)
 * [edk2-stable201811](https://github.com/tianocore/edk2/releases/tag/edk2-stable201811)
 
-# Code Contributions
 To make a contribution to a TianoCore project, follow these steps.
 1. Create a change description in the format specified below to
    use in the source control commit log.
@@ -89,9 +88,6 @@ By making a contribution to this project, I certify that:
     indicated in the file; or
 
 (b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
     by me, under the same open source license (unless I am
     permitted to submit under a different license), as indicated
     in the file; or

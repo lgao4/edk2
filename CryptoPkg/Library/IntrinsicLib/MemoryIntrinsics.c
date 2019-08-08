@@ -13,9 +13,6 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 
 typedef UINTN  size_t;
 
-/* OpenSSL will use floating point support, and C compiler produces the _fltused
-   symbol by default. Simply define this symbol here to satisfy the linker. */
-int _fltused = 1;
 
 /* Sets buffers to a specified character */
 void * memset (void *dest, int ch, size_t count)
