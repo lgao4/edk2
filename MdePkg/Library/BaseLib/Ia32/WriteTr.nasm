@@ -17,8 +17,6 @@
     SECTION .text
 global ASM_PFX(_fltused)
 ASM_PFX(_fltused):
-    mov     eax, ecx
-    ltr     ax
     ret
 
 ;------------------------------------------------------------------------------
