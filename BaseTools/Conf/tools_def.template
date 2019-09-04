@@ -2625,9 +2625,9 @@ NOOPT_CLANGxVS15_X64_DLINK_FLAGS    = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:RE
 ####################################################################################
 *_CLANG7WIN_*_*_FAMILY                = GCC
 *_CLANG7WIN_*_*_BUILDRULEFAMILY       = CLANGWIN
-*_CLANG7WIN_*_MAKE_PATH               = nmake
+*_CLANG7WIN_*_MAKE_PATH               = ENV(CLANG_HOST_BIN)make
 *_CLANG7WIN_*_*_DLL                   = ENV(CLANG7WIN_DLL)
-*_CLANG7WIN_*_ASL_PATH                = DEF(DEFAULT_WIN_ASL_BIN)
+*_CLANG7WIN_*_ASL_PATH                = DEF(UNIX_IASL_BIN)
 
 *_CLANG7WIN_*_APP_FLAGS               =
 *_CLANG7WIN_*_ASL_FLAGS               = DEF(DEFAULT_WIN_ASL_FLAGS)
