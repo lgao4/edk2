@@ -196,7 +196,7 @@ INF  EmulatorPkg/EmuSnpDxe/EmuSnpDxe.inf
 
 INF FatPkg/EnhancedFatDxe/Fat.inf
 
-!if "XCODE5" not in $(TOOL_CHAIN_TAG)
+!if "XCODE5" not in $(TOOL_CHAIN_TAG) and "CLANG9PE" not in $(TOOL_CHAIN_TAG)
 INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
 !endif
 INF  ShellPkg/Application/Shell/Shell.inf
