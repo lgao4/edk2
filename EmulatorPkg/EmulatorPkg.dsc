@@ -237,7 +237,7 @@
 
 [Components]
 !if "IA32" in $(ARCH) || "X64" in $(ARCH)
-  !if "MSFT" in $(FAMILY)
+  !if "MSFT" in $(FAMILY) || "CLANG9" in $(TOOL_CHAIN_TAG)
     ##
     #  Emulator, OS WIN application
     ##
@@ -377,7 +377,7 @@
 
   FatPkg/EnhancedFatDxe/Fat.inf
 
-!if "XCODE5" not in $(TOOL_CHAIN_TAG)
+!if "XCODE5" not in $(TOOL_CHAIN_TAG) and "CLANG9" not in $(TOOL_CHAIN_TAG)
   ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf {
     <PcdsFixedAtBuild>
       gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
@@ -419,7 +419,11 @@
 
   MSFT:DEBUG_*_*_CC_FLAGS = /Od /Oy-
   MSFT:NOOPT_*_*_CC_FLAGS = /Od /Oy-
+  GCC:DEBUG_CLANG9_*_CC_FLAGS =-O0 -D UNICODE -Wno-unused-command-line-argument -Wno-incompatible-pointer-types -Wno-enum-conversion -Wno-incompatible-pointer-types -Wno-sometimes-uninitialized -Wno-constant-conversion -Wno-main-return-type
 
   MSFT:*_*_*_DLINK_FLAGS     = /ALIGN:4096 /FILEALIGN:4096 /SUBSYSTEM:CONSOLE
   MSFT:DEBUG_*_*_DLINK_FLAGS = /EXPORT:InitializeDriver=$(IMAGE_ENTRY_POINT) /BASE:0x10000
   MSFT:NOOPT_*_*_DLINK_FLAGS = /EXPORT:InitializeDriver=$(IMAGE_ENTRY_POINT) /BASE:0x10000
+  GCC:*_CLANG9_*_DLINK_FLAGS     = /ALIGN:4096 /FILEALIGN:4096 /SUBSYSTEM:CONSOLE
+  GCC:DEBUG_CLANG9_*_DLINK_FLAGS = /EXPORT:InitializeDriver=$(IMAGE_ENTRY_POINT) /BASE:0x10000
+  GCC:NOOPT_CLANG9_*_DLINK_FLAGS = /EXPORT:InitializeDriver=$(IMAGE_ENTRY_POINT) /BASE:0x10000
