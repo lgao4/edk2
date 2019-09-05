@@ -289,8 +289,11 @@ DebugPrintLevelEnabled (
   @param  Expression  Boolean expression that evaluated to FALSE
 
 **/
+#ifdef __clang__
+#define _ASSERT(Expression)  DebugAssert (__FILE_NAME__, __LINE__, #Expression)
+#else
 #define _ASSERT(Expression)  DebugAssert (__FILE__, __LINE__, #Expression)
-
+#endif
 
 /**
   Internal worker macro that calls DebugPrint().
