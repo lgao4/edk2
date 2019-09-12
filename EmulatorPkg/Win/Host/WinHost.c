@@ -356,7 +356,7 @@ Returns:
 INTN
 EFIAPI
 main (
-  IN  INTN  Argc,
+  IN  INT  Argc,
   IN  CHAR8 **Argv,
   IN  CHAR8 **Envp
   )
@@ -405,9 +405,6 @@ Returns:
     AdjustTokenPrivileges(Token, FALSE, &TokenPrivileges, 0, (PTOKEN_PRIVILEGES) NULL, 0);
   }
 
-  MemorySizeStr      = (CHAR16 *) PcdGetPtr (PcdEmuMemorySize);
-  FirmwareVolumesStr = (CHAR16 *) PcdGetPtr (PcdEmuFirmwareVolume);
-
   SecPrint ("\n\rEDK II WIN Host Emulation Environment from http://www.tianocore.org/edk2/\n\r");
 
   //
@@ -423,6 +420,12 @@ Returns:
       SetProcessAffinityMask (GetCurrentProcess (), (INTN)(BIT0 << LowBit));
     }
   }
+  
+  //
+  // Move PCD getting late
+  //
+  MemorySizeStr      = (CHAR16 *) PcdGetPtr (PcdEmuMemorySize);
+  FirmwareVolumesStr = (CHAR16 *) PcdGetPtr (PcdEmuFirmwareVolume);
 
   //
   // Make some Windows calls to Set the process to the highest priority in the
