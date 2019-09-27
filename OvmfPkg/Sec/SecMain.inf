@@ -69,3 +69,7 @@
 
 [FeaturePcd]
   gUefiOvmfPkgTokenSpaceGuid.PcdSmmSmramRequire
+
+[BuildOptions]
+  # CLANG9 X64 requires it.
+  GCC:*_CLANG9_X64_CC_FLAGS = -fno-omit-frame-pointer
