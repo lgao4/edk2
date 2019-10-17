@@ -356,7 +356,7 @@ Returns:
 INTN
 EFIAPI
 main (
-  IN  INTN  Argc,
+  IN  INT  Argc,
   IN  CHAR8 **Argv,
   IN  CHAR8 **Envp
   )
@@ -391,8 +391,8 @@ Returns:
   VOID                  *SecFile;
   CHAR16                *MemorySizeStr;
   CHAR16                *FirmwareVolumesStr;
-  UINT32                ProcessAffinityMask;
-  UINT32                SystemAffinityMask;
+  UINTN                 ProcessAffinityMask;
+  UINTN                 SystemAffinityMask;
   INT32                 LowBit;
 
   //
