@@ -117,6 +117,7 @@ CreateBasicVariablePolicy (
 
   // Now we've gotta determine the total size of the buffer required for
   // the VariablePolicy structure.
+  NameSize  = 0;
   TotalSize = sizeof( VARIABLE_POLICY_ENTRY );
   if (Name != NULL) {
     NameSize = StrnSizeS( Name, MAX_UINT16 );

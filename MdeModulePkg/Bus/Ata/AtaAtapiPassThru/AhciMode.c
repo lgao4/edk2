@@ -1122,6 +1122,7 @@ AhciDmaTransfer (
 
   Map   = NULL;
   PciIo = Instance->PciIo;
+  Status = EFI_SUCCESS;
 
   if (PciIo == NULL) {
     return EFI_INVALID_PARAMETER;
